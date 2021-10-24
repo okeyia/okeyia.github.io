@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>关于C++中指针的理解及其应用 | okeyia</title>
+  <meta name="description" content="指针的概念指针是一个特殊的变量，它里面存储的数值被解释成为内存里的一个地址。要搞清一个指针需要搞清指针的四方面的内容:   指针的类型 指针所指向的类型 指针的值或者指针所指向的内存区 指针本身所占的内存区  指针的类型从语法的角度看, 只要把指针声明语句里的指针名字去掉，剩下的部分就是这个指针的类型。这是指针本身所具有的类型。 12345int *ptr; &#x2F;&#x2F;指针的类型是int *  char">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于C++中指针的理解及其应用">
+<meta property="og:url" content="http://okeyia.github.io/2021/10/24/%E5%85%B3%E4%BA%8EC-%E4%B8%AD%E6%8C%87%E9%92%88%E7%9A%84%E7%90%86%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="okeyia">
+<meta property="og:description" content="指针的概念指针是一个特殊的变量，它里面存储的数值被解释成为内存里的一个地址。要搞清一个指针需要搞清指针的四方面的内容:   指针的类型 指针所指向的类型 指针的值或者指针所指向的内存区 指针本身所占的内存区  指针的类型从语法的角度看, 只要把指针声明语句里的指针名字去掉，剩下的部分就是这个指针的类型。这是指针本身所具有的类型。 12345int *ptr; &#x2F;&#x2F;指针的类型是int *  char">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-10-24T02:56:57.000Z">
+<meta property="article:modified_time" content="2021-10-24T03:49:57.733Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://okeyia.github.io/2021/10/24/%E5%85%B3%E4%BA%8EC-%E4%B8%AD%E6%8C%87%E9%92%88%E7%9A%84%E7%90%86%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="okeyia" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/okeyia" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">okeyia</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Web Developer &amp; Designer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Wuhan, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">Repository</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">Books</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">Links</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%A5%E9%97%A8/" rel="tag">入门</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">服务器</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/C/" style="font-size: 13px;">C++</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 13px;">入门</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 13px;">服务器</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/10/24/%E5%85%B3%E4%BA%8EC-%E4%B8%AD%E6%8C%87%E9%92%88%E7%9A%84%E7%90%86%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/" class="title">关于C++中指针的理解及其应用</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-24T02:56:57.000Z" itemprop="datePublished">2021-10-24</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/10/09/frp%E9%85%8D%E7%BD%AE/" class="title">frp配置</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-09T04:51:01.000Z" itemprop="datePublished">2021-10-09</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/02/03/docker-ankiserver/" class="title">docker--ankiserver</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-02-03T11:08:23.000Z" itemprop="datePublished">2021-02-03</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/01/13/Typora%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/" class="title">Typora常用语法</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-01-13T05:57:49.000Z" itemprop="datePublished">2021-01-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/01/04/My-New-Post/" class="title">My New Post</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-01-04T14:01:25.000Z" itemprop="datePublished">2021-01-04</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-关于C-中指针的理解及其应用" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      关于C++中指针的理解及其应用
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/10/24/%E5%85%B3%E4%BA%8EC-%E4%B8%AD%E6%8C%87%E9%92%88%E7%9A%84%E7%90%86%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/" class="article-date">
+	  <time datetime="2021-10-24T02:56:57.000Z" itemprop="datePublished">2021-10-24</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/C/" rel="tag">C++</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/10/24/%E5%85%B3%E4%BA%8EC-%E4%B8%AD%E6%8C%87%E9%92%88%E7%9A%84%E7%90%86%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h4 id="指针的概念"><a href="#指针的概念" class="headerlink" title="指针的概念"></a>指针的概念</h4><p>指针是一个特殊的变量，它里面存储的数值被解释成为内存里的一个地址。要搞清一个指针需要搞清指针的四方面的内容: </p>
+<ul>
+<li>指针的类型</li>
+<li>指针所指向的类型</li>
+<li>指针的值或者指针所指向的内存区</li>
+<li>指针本身所占的内存区</li>
+</ul>
+<h5 id="指针的类型"><a href="#指针的类型" class="headerlink" title="指针的类型"></a>指针的类型</h5><p>从语法的角度看, 只要把指针声明语句里的指针名字去掉，剩下的部分就是这个指针的类型。这是指针本身所具有的类型。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *ptr; <span class="comment">//指针的类型是int *  </span></span><br><span class="line"><span class="keyword">char</span> *ptr; <span class="comment">//指针的类型是char *  </span></span><br><span class="line"><span class="keyword">int</span> **ptr; <span class="comment">//指针的类型是 int **  </span></span><br><span class="line"><span class="keyword">int</span> (*ptr)[<span class="number">3</span>]; <span class="comment">//指针的类型是 int(*)[3]  </span></span><br><span class="line"><span class="keyword">int</span> *(*ptr)[<span class="number">4</span>]; <span class="comment">//指针的类型是 int *(*)[4] </span></span><br></pre></td></tr></table></figure>
+<h5 id="指针所指向的类型"><a href="#指针所指向的类型" class="headerlink" title="指针所指向的类型"></a>指针所指向的类型</h5><p>当你通过指针来访问指针所指向的内存区时，指针所指向的类型决定了编译器将把那片内存区里的内容当做什么来看待。</p>
+<p>从语法上看，你只须把指针声明语句中的指针名字和名字左边的指针声明符*去掉，剩下的就是指针所指向的类型。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *ptr; <span class="comment">//指针所指向的类型是int  </span></span><br><span class="line"><span class="keyword">char</span> *ptr; <span class="comment">//指针所指向的的类型是char  </span></span><br><span class="line"><span class="keyword">int</span> **ptr; <span class="comment">//指针所指向的的类型是 int *  </span></span><br><span class="line"><span class="keyword">int</span> (*ptr)[<span class="number">3</span>]; <span class="comment">//指针所指向的的类型是 int()[3]  </span></span><br><span class="line"><span class="keyword">int</span> *(*ptr)[<span class="number">4</span>]; <span class="comment">//指针所指向的的类型是 int *()[4]</span></span><br></pre></td></tr></table></figure>
+<h5 id="指针的值"><a href="#指针的值" class="headerlink" title="指针的值"></a><strong>指针的值</strong></h5><p>指针的值是指针本身存储的数值，这个值将被编译器当作一个地址，而不是一个一般的数值。在32位程序里，所有类型的指针的值都是一个32位整数，因为32位程序里内存地址全都是32位长。 </p>
+<p>指针所指向的内存区就是从指针的值所代表的那个内存地址开始，长度为<code>sizeof</code>(指针所指向的类型)的一片内存区。以后，我们说一个指针的值是XX，就相当于说该指针指向了以XX为首地址的一片内存区域；我们说一个指针指向了某块内存区域，就相当于说该指针的值是这块内存区域的首地址。 </p>
+<p>指针所指向的内存区和指针所指向的类型是两个完全不同的概念。在例一中，指针所指向的类型已经有了，但由于指针还未初始化，所以它所指向的内存区是不存在的，或者说是无意义的。 </p>
+<p>以后，每遇到一个指针，都应该问问：这个指针的类型是什么？指针指向的类型是什么？该指针指向了哪里？ </p>
+<h5 id="指针本身所占据的内存区"><a href="#指针本身所占据的内存区" class="headerlink" title="指针本身所占据的内存区"></a>指针本身所占据的内存区</h5><p>指针本身占了多大的内存？你只要用函数<code>sizeof</code>(指针的类型)测一下就知道了。在32位平台里，指针本身占据了4个字节的长度。</p>
+<p>指针本身占据的内存这个概念在判断一个指针表达式是否是左值时很有用。 </p>
+<h4 id="指针的算术运算"><a href="#指针的算术运算" class="headerlink" title="指针的算术运算"></a>指针的算术运算</h4><p>指针可以加上或减去一个整数。指针的这种运算的意义和通常的数值的加减运算的意义是不一样的。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> a[<span class="number">20</span>];  </span><br><span class="line"><span class="keyword">int</span> *ptr=a;  </span><br><span class="line">ptr++;  </span><br></pre></td></tr></table></figure>
+<p>在上例中，指针<code>ptr</code>的类型是int*,它指向的类型是int，它被初始化为指向整形变量a。接下来的第3句中，指针<code>ptr</code>被加了1，编译器是这样处理的：它把指针<code>ptr</code>的值加上了<code>sizeof(int)</code>，在32位程序中，是被加上了4。由于地址是用字节做单位的，故<code>ptr</code>所指向的地址由原来的变量a的地址向高地址方向增加了4个字节。注意: 由于char类型的长度是一个字节，所以，原来<code>ptr</code>是指向数组a的第0号单元开始的四个字节，此时指向了数组a中从第4号单元开始的四个字节。</p>
+<p>我们可以用一个指针和一个循环来遍历一个数组，看例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="built_in">array</span>[<span class="number">20</span>];  </span><br><span class="line"><span class="keyword">int</span> *ptr=<span class="built_in">array</span>;  </span><br><span class="line">...  </span><br><span class="line"><span class="comment">//此处略去为整型数组赋值的代码。  </span></span><br><span class="line">...  </span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">20</span>;i++)  </span><br><span class="line">&#123;  </span><br><span class="line">    (*ptr)++;  </span><br><span class="line">    ptr++；  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<p>这个例子将整型数组中各个单元的值加1。由于每次循环都将指针<code>ptr</code>加1，所以每次循环都能访问数组的下一个单元。</p>
+<p>总结一下，一个指针<code>ptrold</code>加上一个整数n后，结果是一个新的指针<code>ptrnew</code>，<code>ptrnew</code>的类型和<code>ptrold</code>的类型相同，<code>ptrnew</code>所指向的类型和<code>ptrold</code>所指向的类型也相同。<code>ptrnew</code>的值将比<code>ptrold</code>的值增加了n乘<code>sizeof</code>(<code>ptrold</code>所指向的类型)个字节。就是说，<code>ptrnew</code>所指向的内存区将比<code>ptrold</code>所指向的内存区向高地址方向移动了n乘<code>sizeof</code>(<code>ptrold</code>所指向的类型)个字节。一个指针<code>ptrold</code>减去一个整数n后，结果是一个新的指针<code>ptrnew</code>，<code>ptrnew</code>的类型和<code>ptrold</code>的类型相同，<code>ptrnew</code>所指向的类型和<code>ptrold</code>所指向的类型也相同。<code>ptrnew</code>的值将比<code>ptrold</code>的值减少了n乘<code>sizeof</code>(<code>ptrold</code>所指向的类型)个字节，就是说，<code>ptrnew</code>所指向的内存区将比<code>ptrold</code>所指向的内存区向低地址方向移动了n乘<code>sizeof</code>(<code>ptrold</code>所指向的类型)个字节。</p>
+<h4 id="运算符-amp-和"><a href="#运算符-amp-和" class="headerlink" title="运算符 &amp; 和 *"></a>运算符 <code>&amp;</code> 和 <code>*</code></h4><p>这里&amp;是取地址运算符，<em>是…书上叫做“间接运算符”。&amp;a的运算结果是一个指针，指针的类型是a的类型加个</em>，指针所指向的类型是a的类型，指针所指向的地址嘛，那就是a的地址。<em>p的运算结果就五花八门了。总之</em>p的结果是p所指向的东西，这个东西有这些特点：它的类型是p指向的类型，它所占用的地址是p所指向的地址。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a=<span class="number">12</span>;  <span class="keyword">int</span> b;  </span><br><span class="line"><span class="keyword">int</span> *p;  </span><br><span class="line"><span class="keyword">int</span> **ptr;  </span><br><span class="line">p=&amp;a;<span class="comment">//&amp;a的结果是一个指针，类型是int*，指向的类型是int，指向的地址是a的地址。  </span></span><br><span class="line">*p=<span class="number">24</span>;<span class="comment">//*p的结果，在这里它的类型是int，它所占用的地址是p所指向的地址，显然，*p就是变量a。</span></span><br><span class="line">ptr=&amp;p;<span class="comment">//&amp;p的结果是个指针，该指针的类型是p的类型加个*，在这里是int**。该指针所指向的类型是p的类型，这里是int*。该指针所指向的地址就是指针p自己的地址。 </span></span><br><span class="line">*ptr=&amp;b; <span class="comment">//*ptr是个指针，&amp;b的结果也是个指针，且这两个指针的类型和所指向的类型是一样的，所以&amp;b来给*ptr赋值就是毫无问题的了。</span></span><br><span class="line">**ptr=<span class="number">34</span>;<span class="comment">//*ptr的结果是ptr所指向的东西，在这里是一个指针，对这个指针再做一次*运算，结果就是一个int类型的变量。</span></span><br></pre></td></tr></table></figure>
+<h4 id="指针表达式"><a href="#指针表达式" class="headerlink" title="指针表达式"></a><strong>指针表达式</strong></h4><p>一个表达式的最后结果如果是一个指针，那么这个表达式就叫指针表达式。下面是一些指针表达式的例子： </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a,b;  </span><br><span class="line"><span class="keyword">int</span> <span class="built_in">array</span>[<span class="number">10</span>];  </span><br><span class="line"><span class="keyword">int</span> *pa;  </span><br><span class="line">pa=&amp;a;<span class="comment">//&amp;a是一个指针表达式。  </span></span><br><span class="line"><span class="keyword">int</span> **ptr=&amp;pa;<span class="comment">//&amp;pa也是一个指针表达式。  </span></span><br><span class="line">*ptr=&amp;b;<span class="comment">//*ptr和&amp;b都是指针表达式。  </span></span><br><span class="line">pa=<span class="built_in">array</span>;  </span><br><span class="line">pa++;<span class="comment">//这也是指针表达式。</span></span><br></pre></td></tr></table></figure>
+<p>再比如:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> *arr[<span class="number">20</span>];  </span><br><span class="line"><span class="keyword">char</span> **parr=arr;<span class="comment">//如果把arr看作指针的话，arr也是指针表达式  </span></span><br><span class="line"><span class="keyword">char</span> *str;  </span><br><span class="line">str=*parr;<span class="comment">//*parr是指针表达式  </span></span><br><span class="line">str=*(parr+<span class="number">1</span>);<span class="comment">//*(parr+1)是指针表达式  </span></span><br><span class="line">str=*(parr+<span class="number">2</span>);<span class="comment">//*(parr+2)是指针表达式 </span></span><br></pre></td></tr></table></figure>
+<p>由于指针表达式的结果是一个指针，所以指针表达式也具有指针所具有的四个要素：指针的类型，指针所指向的类型，指针指向的内存区，指针自身占据的内存。</p>
+<p>好了，当一个指针表达式的结果指针已经明确地具有了指针自身占据的内存的话，这个指针表达式就是一个左值，否则就不是一个左值。 在例七中，&amp;a不是一个左值，因为它还没有占据明确的内存。<code>*ptr</code>是一个左值，因为<code>*ptr</code>这个指针已经占据了内存，其实<code>*ptr</code>就是指针pa，既然pa已经在内存中有了自己的位置，那么<code>*ptr</code>当然也有了自己的位置。</p>
+<h4 id="数组和指针的关系"><a href="#数组和指针的关系" class="headerlink" title="数组和指针的关系"></a>数组和指针的关系</h4><p>关于数组和指针, 以及多维指针, 声明一些赏识:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">1、实际上并不存在多维数组，所谓的多维数组本质上是用一维数组模拟的。</span><br><span class="line"></span><br><span class="line">2、数组名是一个常量（意味着不允许对其进行赋值操作），其代表数组首元素的首地址。</span><br><span class="line"></span><br><span class="line">3、数组与指针的关系是因为数组下标操作符[]，比如，int a[3][2]相当于*(*(a+3)+2) 。</span><br><span class="line"></span><br><span class="line">4、指针是一种变量，也具有类型，其占用内存空间大小和系统有关，一般32位系统下，sizeof(指针变量)&#x3D;4。</span><br><span class="line"></span><br><span class="line">5、指针可以进行加减算术运算，加减的基本单位是sizeof(指针所指向的数据类型)。</span><br><span class="line"></span><br><span class="line">6、对数组的数组名进行取地址(&amp;)操作，其类型为整个数组类型。</span><br><span class="line"></span><br><span class="line">7、对数组的数组名进行sizeof运算符操作，其值为整个数组的大小(以字节为单位)。</span><br><span class="line"></span><br><span class="line">8、数组作为函数形参时会退化为指针。</span><br></pre></td></tr></table></figure>
+<h5 id="一维数组与指针"><a href="#一维数组与指针" class="headerlink" title="一维数组与指针"></a>一维数组与指针</h5><p>假设有一维数组如下:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> a[<span class="number">3</span>];</span><br></pre></td></tr></table></figure>
+<p>该数组一共有3个元素，元素的类型为char，如果想定义一个指针指向该数组，也就是如果想把数组名a赋值给一个指针变量，那么该指针变量的类型应该是什么呢？前文说过，一个数组的数组名代表其首元素的首地址，也就是相当于&amp;a[0]，而a[0]的类型为char，因此&amp;a[0]类型为char *，因此，可以定义如下的指针变量： </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> * p = a;<span class="comment">//相当于char * p = &amp;a[0]</span></span><br></pre></td></tr></table></figure>
+<p> 以上文字可用如下内存模型图表示:</p>
+
+
+<p>大家都应该知道，a和&amp;a[0]代表的都是数组首元素的首地址，而如果你将&amp;a的值打印出来，会发现<strong>该值也等于数组首元素的首地址</strong>。请注意我这里的措辞，也就是说，&amp;a虽然在数值上也等于数组首元素首地址的值，但是其类型并不是数组首元素首地址类型，也就是char *p = &amp;a是错误的。</p>
+<p>前文第6条常识已经说过，对数组名进行取地址操作，其类型为整个数组，因此，&amp;a的类型是char (*)[3]，所以正确的赋值方式如下: </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> (*p)[<span class="number">3</span>] = &amp;a;</span><br></pre></td></tr></table></figure>
+<h5 id="二维数组与指针"><a href="#二维数组与指针" class="headerlink" title="二维数组与指针"></a>二维数组与指针</h5><p> 假如有如下二维数组：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> a[<span class="number">3</span>][<span class="number">2</span>];</span><br></pre></td></tr></table></figure>
+<p>由于实际上并不存在多维数组，因此，可以将<code>a[3][2]</code>看成是一个具有3个元素的一维数组，只是这三个元素分别又是一个一维数组。实际上，在内存中，该数组的确是按照一维数组的形式存储的，存储顺序为(低地址在前)：<code>a[0][0]</code>、<code>a[0][1]</code>、<code>a[1][0]</code>、<code>a[1][1]</code>、<code>a[2][0]</code>、<code>a[2][1]</code>。(此种方式也不是绝对，也有按列优先存储的模式)。</p>
+<p>为了方便理解，我画了一张逻辑上的内存图，之所以说是逻辑上的，是因为该图只是便于理解，并不是数组在内存中实际的存储模型（实际模型为前文所述）。</p>
+
+
+<p> 如上图所示，我们可以将数组分成两个维度来看，首先是第一维，将<code>a[3][2]</code>看成一个具有三个元素的一维数组，元素分别为：<code>a[0]</code>、<code>a[1]</code>、<code>a[2]</code>，其中，<code>a[0]</code>、<code>a[1]</code>、<code>a[2]</code>又分别是一个具有两个元素的一维数组(元素类型为char)。从第二个维度看，此处可以<strong>将<code>a[0]</code>、<code>a[1]</code>、<code>a[2]</code>看成自己代表”第二维”数组的数组名，</strong>以a[0]为例，<code>a[0](数组名)</code>代表的一维数组是一个具有两个char类型元素的数组，而a[0]是这个数组的数组名(代表数组首元素首地址)，因此a[0]类型为<code>char *</code>，同理<code>a[1]</code>和<code>a[2]</code>类型都是char <em>。</em>而a是第一维数组的数组名，代表首元素首地址，而首元素是一个具有两个char类型元素的一维数组，因此a就是一个指向具有两个char类型元素数组的数组指针，也就是<code>char(*)[2]</code>。</p>
+<p>也就是说，如下的赋值是正确的:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> (*p)[<span class="number">2</span>]  = a;<span class="comment">//a为第一维数组的数组名，类型为char (*)[2]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> * p = a[<span class="number">0</span>];<span class="comment">//a[0]维第二维数组的数组名，类型为char *</span></span><br></pre></td></tr></table></figure>
+<p>同样，对a取地址操作代表整个数组的首地址，类型为数组类型(请允许我暂且这么称呼)，也就是char (*)[3][2]，所以如下赋值是正确的： </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> (*p)[<span class="number">3</span>][<span class="number">2</span>] = &amp;a;</span><br></pre></td></tr></table></figure>
+<h4 id="指针和结构类型的关系"><a href="#指针和结构类型的关系" class="headerlink" title="指针和结构类型的关系"></a><strong>指针和结构类型的关系</strong></h4><p>可以声明一个指向结构类型对象的指针。 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">MyStruct</span>  </span></span><br><span class="line"><span class="class">&#123;</span>  </span><br><span class="line"><span class="keyword">int</span> a;  </span><br><span class="line"><span class="keyword">int</span> b;  </span><br><span class="line"><span class="keyword">int</span> c;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">MyStruct ss=&#123;<span class="number">20</span>,<span class="number">30</span>,<span class="number">40</span>&#125;;<span class="comment">//声明了结构对象ss，并把ss的三个成员初始化为20，30和40。</span></span><br><span class="line">MyStruct *ptr=&amp;ss;<span class="comment">//声明了一个指向结构对象ss的指针。它的类型是</span></span><br><span class="line">MyStruct*,它指向的类型是MyStruct。</span><br><span class="line"><span class="keyword">int</span> *pstr=(<span class="keyword">int</span>*)&amp;ss;<span class="comment">//声明了一个指向结构对象ss的指针。但是它的类型和它指向的类型和ptr是不同的。</span></span><br></pre></td></tr></table></figure>
+<p>请问怎样通过指针<code>ptr</code>来访问<code>ss</code>的三个成员变量？</p>
+<p>答案： </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ptr-&gt;a;  </span><br><span class="line">ptr-&gt;b;  </span><br><span class="line">ptr-&gt;c; </span><br></pre></td></tr></table></figure>
+<h4 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h4><p>本篇博客作者只用于自己对C++的学习， 无意传播。</p>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ggjucheng/archive/2011/12/13/2286391.html">https://www.cnblogs.com/ggjucheng/archive/2011/12/13/2286391.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/chenyangyao/p/5222696.html">https://www.cnblogs.com/chenyangyao/p/5222696.html</a></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://okeyia.github.io/2021/10/24/%E5%85%B3%E4%BA%8EC-%E4%B8%AD%E6%8C%87%E9%92%88%E7%9A%84%E7%90%86%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/" title="关于C++中指针的理解及其应用" target="_blank" rel="external">http://okeyia.github.io/2021/10/24/%E5%85%B3%E4%BA%8EC-%E4%B8%AD%E6%8C%87%E9%92%88%E7%9A%84%E7%90%86%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/okeyia" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/okeyia" target="_blank"><span class="text-dark">okeyia</span><small class="ml-1x">Web Developer &amp; Designer</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="uyan_frame"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2021/10/09/frp%E9%85%8D%E7%BD%AE/" title="frp配置"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+    <script defer type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=[object Object]"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
