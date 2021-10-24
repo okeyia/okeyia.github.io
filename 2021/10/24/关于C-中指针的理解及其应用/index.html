@@ -25,11 +25,14 @@
 <meta property="og:site_name" content="okeyia">
 <meta property="og:description" content="指针的概念指针是一个特殊的变量，它里面存储的数值被解释成为内存里的一个地址。要搞清一个指针需要搞清指针的四方面的内容:   指针的类型 指针所指向的类型 指针的值或者指针所指向的内存区 指针本身所占的内存区  指针的类型从语法的角度看, 只要把指针声明语句里的指针名字去掉，剩下的部分就是这个指针的类型。这是指针本身所具有的类型。 12345int *ptr; &#x2F;&#x2F;指针的类型是int *  char">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://okeyia.github.io/2021/10/24/%E5%85%B3%E4%BA%8EC-%E4%B8%AD%E6%8C%87%E9%92%88%E7%9A%84%E7%90%86%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/10/24/%E5%85%B3%E4%BA%8EC-%E4%B8%AD%E6%8C%87%E9%92%88%E7%9A%84%E7%90%86%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/592743-20160227110509240-1709127045.png">
+<meta property="og:image" content="http://okeyia.github.io/2021/10/24/%E5%85%B3%E4%BA%8EC-%E4%B8%AD%E6%8C%87%E9%92%88%E7%9A%84%E7%90%86%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/10/24/%E5%85%B3%E4%BA%8EC-%E4%B8%AD%E6%8C%87%E9%92%88%E7%9A%84%E7%90%86%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/592743-20160227122557865-606035369.png">
 <meta property="article:published_time" content="2021-10-24T02:56:57.000Z">
-<meta property="article:modified_time" content="2021-10-24T03:49:57.733Z">
+<meta property="article:modified_time" content="2021-10-24T03:54:30.891Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://okeyia.github.io/2021/10/24/%E5%85%B3%E4%BA%8EC-%E4%B8%AD%E6%8C%87%E9%92%88%E7%9A%84%E7%90%86%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/10/24/%E5%85%B3%E4%BA%8EC-%E4%B8%AD%E6%8C%87%E9%92%88%E7%9A%84%E7%90%86%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/592743-20160227110509240-1709127045.png">
   <!-- Canonical links -->
   <link rel="canonical" href="http://okeyia.github.io/2021/10/24/%E5%85%B3%E4%BA%8EC-%E4%B8%AD%E6%8C%87%E9%92%88%E7%9A%84%E7%90%86%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/index.html">
   
@@ -401,7 +404,7 @@
 <p>该数组一共有3个元素，元素的类型为char，如果想定义一个指针指向该数组，也就是如果想把数组名a赋值给一个指针变量，那么该指针变量的类型应该是什么呢？前文说过，一个数组的数组名代表其首元素的首地址，也就是相当于&amp;a[0]，而a[0]的类型为char，因此&amp;a[0]类型为char *，因此，可以定义如下的指针变量： </p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> * p = a;<span class="comment">//相当于char * p = &amp;a[0]</span></span><br></pre></td></tr></table></figure>
 <p> 以上文字可用如下内存模型图表示:</p>
-
+<img src="/2021/10/24/%E5%85%B3%E4%BA%8EC-%E4%B8%AD%E6%8C%87%E9%92%88%E7%9A%84%E7%90%86%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/10/24/%E5%85%B3%E4%BA%8EC-%E4%B8%AD%E6%8C%87%E9%92%88%E7%9A%84%E7%90%86%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/592743-20160227110509240-1709127045.png" class>
 
 <p>大家都应该知道，a和&amp;a[0]代表的都是数组首元素的首地址，而如果你将&amp;a的值打印出来，会发现<strong>该值也等于数组首元素的首地址</strong>。请注意我这里的措辞，也就是说，&amp;a虽然在数值上也等于数组首元素首地址的值，但是其类型并不是数组首元素首地址类型，也就是char *p = &amp;a是错误的。</p>
 <p>前文第6条常识已经说过，对数组名进行取地址操作，其类型为整个数组，因此，&amp;a的类型是char (*)[3]，所以正确的赋值方式如下: </p>
@@ -410,7 +413,7 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> a[<span class="number">3</span>][<span class="number">2</span>];</span><br></pre></td></tr></table></figure>
 <p>由于实际上并不存在多维数组，因此，可以将<code>a[3][2]</code>看成是一个具有3个元素的一维数组，只是这三个元素分别又是一个一维数组。实际上，在内存中，该数组的确是按照一维数组的形式存储的，存储顺序为(低地址在前)：<code>a[0][0]</code>、<code>a[0][1]</code>、<code>a[1][0]</code>、<code>a[1][1]</code>、<code>a[2][0]</code>、<code>a[2][1]</code>。(此种方式也不是绝对，也有按列优先存储的模式)。</p>
 <p>为了方便理解，我画了一张逻辑上的内存图，之所以说是逻辑上的，是因为该图只是便于理解，并不是数组在内存中实际的存储模型（实际模型为前文所述）。</p>
-
+<img src="/2021/10/24/%E5%85%B3%E4%BA%8EC-%E4%B8%AD%E6%8C%87%E9%92%88%E7%9A%84%E7%90%86%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/10/24/%E5%85%B3%E4%BA%8EC-%E4%B8%AD%E6%8C%87%E9%92%88%E7%9A%84%E7%90%86%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/592743-20160227122557865-606035369.png" class title="img">
 
 <p> 如上图所示，我们可以将数组分成两个维度来看，首先是第一维，将<code>a[3][2]</code>看成一个具有三个元素的一维数组，元素分别为：<code>a[0]</code>、<code>a[1]</code>、<code>a[2]</code>，其中，<code>a[0]</code>、<code>a[1]</code>、<code>a[2]</code>又分别是一个具有两个元素的一维数组(元素类型为char)。从第二个维度看，此处可以<strong>将<code>a[0]</code>、<code>a[1]</code>、<code>a[2]</code>看成自己代表”第二维”数组的数组名，</strong>以a[0]为例，<code>a[0](数组名)</code>代表的一维数组是一个具有两个char类型元素的数组，而a[0]是这个数组的数组名(代表数组首元素首地址)，因此a[0]类型为<code>char *</code>，同理<code>a[1]</code>和<code>a[2]</code>类型都是char <em>。</em>而a是第一维数组的数组名，代表首元素首地址，而首元素是一个具有两个char类型元素的一维数组，因此a就是一个指向具有两个char类型元素数组的数组指针，也就是<code>char(*)[2]</code>。</p>
 <p>也就是说，如下的赋值是正确的:</p>
