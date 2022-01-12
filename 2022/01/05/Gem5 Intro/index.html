@@ -1,371 +1,154 @@
-<!DOCTYPE html>
-<html lang=en>
-<head>
-  <meta charset="utf-8">
-  
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="Cache-Control" content="no-transform" />
-  <meta http-equiv="Cache-Control" content="no-siteapp" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="format-detection" content="telephone=no,email=no,adress=no">
-  <!-- Color theme for statusbar -->
-  <meta name="theme-color" content="#000000" />
-  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
-  <meta http-equiv="window-target" content="_top" />
-  
-  
-  <title>Gem5 Intro | okeyia</title>
-  <meta name="description" content="一 gem5介绍 cpu模型GEM5支持四种不同的CPU模型：  AtomicSimple是最简单规模的模型，一个cycle完成一条指令的执行，memory 模型比较理想化，访存操作为原子性操作。适用于快速功能模拟。  TimingSimple模拟器也是无流水线的模拟，但是使用了存储器访问时序模型，用以统计存储器访问延迟。  In-Order模型是GEM5模拟的新特性，流水级为默认五级流水：取值、">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Gem5 Intro | okeyia</title><meta name="keywords" content="Gem5"><meta name="author" content="okeyia"><meta name="copyright" content="okeyia"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一 gem5介绍 cpu模型GEM5支持四种不同的CPU模型：  AtomicSimple是最简单规模的模型，一个cycle完成一条指令的执行，memory 模型比较理想化，访存操作为原子性操作。适用于快速功能模拟。  TimingSimple模拟器也是无流水线的模拟，但是使用了存储器访问时序模型，用以统计存储器访问延迟。  In-Order模型是GEM5模拟的新特性，流水级为默认五级流水：取值、">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Gem5 Intro">
 <meta property="og:url" content="http://okeyia.github.io/2022/01/05/Gem5%20Intro/index.html">
 <meta property="og:site_name" content="okeyia">
 <meta property="og:description" content="一 gem5介绍 cpu模型GEM5支持四种不同的CPU模型：  AtomicSimple是最简单规模的模型，一个cycle完成一条指令的执行，memory 模型比较理想化，访存操作为原子性操作。适用于快速功能模拟。  TimingSimple模拟器也是无流水线的模拟，但是使用了存储器访问时序模型，用以统计存储器访问延迟。  In-Order模型是GEM5模拟的新特性，流水级为默认五级流水：取值、">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://okeyia.github.io/2022/01/05/Gem5%20Intro/image-20211221104758184.png">
-<meta property="og:image" content="http://okeyia.github.io/2022/01/05/Gem5%20Intro/simple_config.png">
-<meta property="og:image" content="http://okeyia.github.io/2022/01/05/Gem5%20Intro/advanced_config.png">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/01/09/43WTyGZgkEiLPn9.png">
 <meta property="article:published_time" content="2022-01-05T07:20:25.000Z">
-<meta property="article:modified_time" content="2022-01-05T07:33:48.463Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:modified_time" content="2022-01-09T13:37:04.515Z">
+<meta property="article:author" content="okeyia">
 <meta property="article:tag" content="Gem5">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://okeyia.github.io/2022/01/05/Gem5%20Intro/image-20211221104758184.png">
-  <!-- Canonical links -->
-  <link rel="canonical" href="http://okeyia.github.io/2022/01/05/Gem5%20Intro/index.html">
-  
-    <link rel="alternate" href="/atom.xml" title="okeyia" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+<meta name="twitter:image" content="https://s2.loli.net/2022/01/09/43WTyGZgkEiLPn9.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://okeyia.github.io/2022/01/05/Gem5%20Intro/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Gem5 Intro',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: undefined,
+  isToc: true,
+  postUpdate: '2022-01-09 21:37:04'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
 
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
   
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
   
-  
-  
-<meta name="generator" content="Hexo 5.3.0"></head>
-
-
-<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
-  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-  <div class="slimContent">
-    <div class="navbar-header">
-      
-      
-      <div class="profile-block text-center">
-        <a id="avatar" href="https://github.com/okeyia" target="_blank">
-          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
-        </a>
-        <h2 id="name" class="hidden-xs hidden-sm">okeyia</h2>
-        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Web Developer &amp; Designer</h3>
-        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Wuhan, China</small>
-      </div>
-      
-      <div class="search" id="search-form-wrap">
-
-    <form class="search-form sidebar-form">
-        <div class="input-group">
-            <input type="text" class="search-form-input form-control" placeholder="Search" />
-            <span class="input-group-btn">
-                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
-            </span>
-        </div>
-    </form>
-    <div class="ins-search">
-  <div class="ins-search-mask"></div>
-  <div class="ins-search-container">
-    <div class="ins-input-wrapper">
-      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
-      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-    </div>
-    <div class="ins-section-wrapper">
-      <div class="ins-section-container"></div>
-    </div>
-  </div>
-</div>
-
-
-</div>
-      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
-    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
-      <ul class="nav navbar-nav main-nav ">
-        
-        
-        <li class="menu-item menu-item-home">
-          <a href="/.">
-            
-            <i class="icon icon-home-fill"></i>
-            
-            <span class="menu-title">Home</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives">
-            
-            <i class="icon icon-archives-fill"></i>
-            
-            <span class="menu-title">Archives</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories">
-            
-            <i class="icon icon-folder"></i>
-            
-            <span class="menu-title">Categories</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags">
-            
-            <i class="icon icon-tags"></i>
-            
-            <span class="menu-title">Tags</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-repository">
-          <a href="/repository">
-            
-            <i class="icon icon-project"></i>
-            
-            <span class="menu-title">Repository</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-books">
-          <a href="/books">
-            
-            <i class="icon icon-book-fill"></i>
-            
-            <span class="menu-title">Books</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-links">
-          <a href="/links">
-            
-            <i class="icon icon-friendship"></i>
-            
-            <span class="menu-title">Links</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about">
-            
-            <i class="icon icon-cup-fill"></i>
-            
-            <span class="menu-title">About</span>
-          </a>
-        </li>
-        
-      </ul>
-      
-    </nav>
-  </div>
-</header>
-
-  
-    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
-  <div class="slimContent">
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
     
-      <div class="widget">
-    <h3 class="widget-title">Board</h3>
-    <div class="widget-body">
-        <div id="board">
-            <div class="content">
-                <p>欢迎交流与分享经验!</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-    
-      
-
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gem5/" rel="tag">Gem5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%A5%E9%97%A8/" rel="tag">入门</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">服务器</a><span class="tag-list-count">1</span></li></ul>
-    </div>
-  </div>
-
-
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget-body tagcloud">
-      <a href="/tags/C/" style="font-size: 14px;">C++</a> <a href="/tags/Gem5/" style="font-size: 13px;">Gem5</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 13px;">入门</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 13px;">服务器</a>
-    </div>
-  </div>
-
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">Archive</h3>
-    <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">1</span></li></ul>
-    </div>
-  </div>
-
-
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget-body">
-      <ul class="recent-post-list list-unstyled no-thumbnail">
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
         
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2022/01/05/Gem5%20Intro/" class="title">Gem5 Intro</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2022-01-05T07:20:25.000Z" itemprop="datePublished">2022-01-05</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2022/01/05/b%E7%AB%99%E9%BB%91%E9%A9%ACC++%E5%AD%A6%E4%B9%A0/" class="title">黑马C++ 核心编程</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2022-01-05T03:43:57.000Z" itemprop="datePublished">2022-01-05</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2021/10/24/%E5%85%B3%E4%BA%8EC-%E4%B8%AD%E6%8C%87%E9%92%88%E7%9A%84%E7%90%86%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/" class="title">关于C++中指针的理解及其应用</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2021-10-24T02:56:57.000Z" itemprop="datePublished">2021-10-24</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2021/10/09/frp%E9%85%8D%E7%BD%AE/" class="title">frp配置</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2021-10-09T04:51:01.000Z" itemprop="datePublished">2021-10-09</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2021/02/03/docker-ankiserver/" class="title">docker--ankiserver</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2021-02-03T11:08:23.000Z" itemprop="datePublished">2021-02-03</time>
-              </p>
-            </div>
-          </li>
-          
-      </ul>
-    </div>
-  </div>
-  
-
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
     
-  </div>
-</aside>
-
-  
-  
-<main class="main" role="main">
-  <div class="content">
-  <article id="post-Gem5 Intro" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Gem5 Intro
-    </h1>
-  
-
-      
-      <div class="article-meta">
-        <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2022/01/05/Gem5%20Intro/" class="article-date">
-	  <time datetime="2022-01-05T07:20:25.000Z" itemprop="datePublished">2022-01-05</time>
-	</a>
-</span>
-        
-        
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/Gem5/" rel="tag">Gem5</a>
-  </span>
-
-
-        
-
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/01/05/Gem5%20Intro/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h3 id="一-gem5介绍"><a href="#一-gem5介绍" class="headerlink" title="一 gem5介绍"></a>一 gem5介绍</h3><p><img src="/2022/01/05/Gem5%20Intro/image-20211221104758184.png" alt="image-20211221104758184"></p>
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="okeyia" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></div><div class="menus_item"><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2022/01/09/43WTyGZgkEiLPn9.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">okeyia</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></div><div class="menus_item"><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Gem5 Intro</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-05T07:20:25.000Z" title="发表于 2022-01-05 15:20:25">2022-01-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-09T13:37:04.515Z" title="更新于 2022-01-09 21:37:04">2022-01-09</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Gem5 Intro"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="一-gem5介绍"><a href="#一-gem5介绍" class="headerlink" title="一 gem5介绍"></a>一 gem5介绍</h3><p><img src="/2022/01/05/Gem5%20Intro/image-20211221104758184.png" alt="image-20211221104758184"></p>
 <h4 id="cpu模型"><a href="#cpu模型" class="headerlink" title="cpu模型"></a>cpu模型</h4><p>GEM5支持四种不同的CPU模型：</p>
 <ul>
 <li><p>AtomicSimple是最简单规模的模型，一个cycle完成一条指令的执行，memory 模型比较理想化，访存操作为原子性操作。适用于快速功能模拟。</p>
@@ -385,154 +168,26 @@
 </ul>
 <h3 id="二-官网实验"><a href="#二-官网实验" class="headerlink" title="二 官网实验"></a>二 官网实验</h3><h4 id="一-simply-py"><a href="#一-simply-py" class="headerlink" title="一 simply.py"></a>一 simply.py</h4><p><img src="/2022/01/05/Gem5%20Intro/simple_config.png" alt="simple_config"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> m5</span><br><span class="line"><span class="keyword">from</span> m5.objects <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"> <span class="comment">#创建要模拟的系统</span></span><br><span class="line">system = System()</span><br><span class="line"><span class="comment">#设置系统时钟。1、建立时钟域，2、设置时钟频率，3、为时钟域指定电压域</span></span><br><span class="line">system.clk_domain = SrcClockDomain()</span><br><span class="line">system.clk_domain.clock = <span class="string">&#x27;1GHz&#x27;</span></span><br><span class="line">system.clk_domain.voltage_domain = VoltageDomain()</span><br><span class="line">  </span><br><span class="line"><span class="comment">#设置系统模拟内存(计时模式)，设置内存范围</span></span><br><span class="line">system.mem_mode = <span class="string">&#x27;timing&#x27;</span></span><br><span class="line">system.mem_ranges = [AddrRange(<span class="string">&#x27;512MB&#x27;</span>)]</span><br><span class="line">   </span><br><span class="line"><span class="comment">#创建CPU（基于时间），</span></span><br><span class="line">system.cpu = TimingSimpleCPU()</span><br><span class="line"><span class="comment">#创建系统范围内存总线</span></span><br><span class="line">system.membus = SystemXBar()</span><br><span class="line">     </span><br><span class="line"><span class="comment">#将CPU上的缓存端口连接到内存总线上。由于没有建立缓存cache，所以将icache和dcache直接连接到menbus</span></span><br><span class="line">system.cpu.icache_port = system.membus.cpu_side_ports</span><br><span class="line">system.cpu.dcache_port = system.membus.cpu_side_ports</span><br><span class="line">      </span><br><span class="line"><span class="comment">#连接CPU的其他端口以确保系统可以正常工作，例如I/O控制器。</span></span><br><span class="line">system.cpu.createInterruptController()</span><br><span class="line"></span><br><span class="line"><span class="comment">#将系统的一个特殊端口连接到menbus，这个端口只允许系统读写内存。</span></span><br><span class="line">system.system_port = system.membus.cpu_side_ports</span><br><span class="line">       </span><br><span class="line"><span class="comment">#x86的特定要求，将PIO和中断端口连接到内存总线</span></span><br><span class="line"><span class="keyword">if</span> m5.defines.buildEnv[<span class="string">&#x27;TARGET_ISA&#x27;</span>] == <span class="string">&quot;x86&quot;</span>:</span><br><span class="line">    system.cpu.interrupts[<span class="number">0</span>].pio = system.membus.mem_side_ports</span><br><span class="line">    system.cpu.interrupts[<span class="number">0</span>].int_requestor = system.membus.cpu_side_ports</span><br><span class="line">    system.cpu.interrupts[<span class="number">0</span>].int_responder = system.membus.mem_side_ports</span><br><span class="line">                        </span><br><span class="line"><span class="comment">#创建一个内存控制器，并将其连接到内存总线。这里使用的是DDR3控制器，负责内存的范围。</span></span><br><span class="line">system.mem_ctrl = MemCtrl()</span><br><span class="line">system.mem_ctrl.port = system.membus.mem_side_ports</span><br><span class="line">system.mem_ctrl.dram = DDR3_1600_8x8()</span><br><span class="line">system.mem_ctrl.dram.<span class="built_in">range</span> = system.mem_ranges[<span class="number">0</span>]</span><br><span class="line">                         </span><br><span class="line"><span class="comment">#---------设置CPU执行的进程--------------------#</span></span><br><span class="line"><span class="comment">#这里使用syscall仿真模式</span></span><br><span class="line"><span class="comment">#1、设置可执行文件，2、创建进程，设置进程执行的可执行文件，</span></span><br><span class="line"><span class="comment"># 3、将进程设置为CPU的工作负载，4、在CPU上创建进程（或者说创建执行</span></span><br><span class="line">binary = <span class="string">&#x27;tests/test-progs/hello/bin/x86/linux/hello&#x27;</span></span><br><span class="line">                          </span><br><span class="line"><span class="comment">#对于gem5 v21及更高版本，加入下面一行。</span></span><br><span class="line">system.workload = SEWorkload.init_compatible(binary)</span><br><span class="line">                           </span><br><span class="line">process = Process()</span><br><span class="line">process.cmd = [binary]</span><br><span class="line">system.cpu.workload = process</span><br><span class="line">system.cpu.createThreads()</span><br><span class="line">                            </span><br><span class="line"><span class="comment">#---------实例化系统并执行-------------#</span></span><br><span class="line"><span class="comment">#创建根对象，并实例化模拟</span></span><br><span class="line">root = Root(full_system = <span class="literal">False</span>,system = system)</span><br><span class="line">m5.instantiate()</span><br><span class="line">                             </span><br><span class="line"><span class="comment">#开始模拟。这里的print不是语句而是作为一个函数被</span></span><br><span class="line">print(<span class="string">&quot;Beginning simulation&quot;</span>)</span><br><span class="line">exit_event = m5.simulate()</span><br><span class="line">                              </span><br><span class="line"><span class="comment">#模拟结束后对系统进行检测</span></span><br><span class="line">print(<span class="string">&#x27;Exiting @ tick &#123;&#125; because &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(m5.curTick(),exit_event.getCause()))</span><br></pre></td></tr></table></figure>
+
 <h4 id="二-two-level-py"><a href="#二-two-level-py" class="headerlink" title="二 two-level.py"></a>二 two-level.py</h4><p><img src="/2022/01/05/Gem5%20Intro/advanced_config.png" alt="A system configuration with a two-level cache hierarchy."></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># import the m5 (gem5) library created when gem5 is built</span></span><br><span class="line"><span class="keyword">import</span> m5</span><br><span class="line"><span class="comment"># import all of the SimObjects</span></span><br><span class="line"><span class="keyword">from</span> m5.objects <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add the common scripts to our path</span></span><br><span class="line">m5.util.addToPath(<span class="string">&#x27;../../&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># import the caches which we made</span></span><br><span class="line"><span class="keyword">from</span> caches <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># import the SimpleOpts module</span></span><br><span class="line"><span class="keyword">from</span> common <span class="keyword">import</span> SimpleOpts</span><br><span class="line"></span><br><span class="line"><span class="comment"># get ISA for the default binary to run. This is mostly for simple testing</span></span><br><span class="line">isa = <span class="built_in">str</span>(m5.defines.buildEnv[<span class="string">&#x27;TARGET_ISA&#x27;</span>]).lower()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Default to running &#x27;hello&#x27;, use the compiled ISA to find the binary</span></span><br><span class="line"><span class="comment"># grab the specific path to the binary</span></span><br><span class="line">thispath = os.path.dirname(os.path.realpath(__file__))</span><br><span class="line">default_binary = os.path.join(thispath, <span class="string">&#x27;../../../&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;tests/test-progs/hello/bin/&#x27;</span>, isa, <span class="string">&#x27;linux/hello&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Binary to execute</span></span><br><span class="line">SimpleOpts.add_option(<span class="string">&quot;binary&quot;</span>, nargs=<span class="string">&#x27;?&#x27;</span>, default=default_binary)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Finalize the arguments and grab the args so we can pass it on to our objects</span></span><br><span class="line">args = SimpleOpts.parse_args()</span><br><span class="line"></span><br><span class="line"><span class="comment"># create the system we are going to simulate</span></span><br><span class="line">system = System()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set the clock fequency of the system (and all of its children)</span></span><br><span class="line">system.clk_domain = SrcClockDomain()</span><br><span class="line">system.clk_domain.clock = <span class="string">&#x27;1GHz&#x27;</span></span><br><span class="line">system.clk_domain.voltage_domain = VoltageDomain()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set up the system</span></span><br><span class="line">system.mem_mode = <span class="string">&#x27;timing&#x27;</span>               <span class="comment"># Use timing accesses</span></span><br><span class="line">system.mem_ranges = [AddrRange(<span class="string">&#x27;512MB&#x27;</span>)] <span class="comment"># Create an address range</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a simple CPU</span></span><br><span class="line">system.cpu = TimingSimpleCPU()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create an L1 instruction and data cache</span></span><br><span class="line">system.cpu.icache = L1ICache(args)</span><br><span class="line">system.cpu.dcache = L1DCache(args)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Connect the instruction and data caches to the CPU</span></span><br><span class="line">system.cpu.icache.connectCPU(system.cpu)</span><br><span class="line">system.cpu.dcache.connectCPU(system.cpu)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a memory bus, a coherent crossbar, in this case</span></span><br><span class="line">system.l2bus = L2XBar()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Hook the CPU ports up to the l2bus</span></span><br><span class="line">system.cpu.icache.connectBus(system.l2bus)</span><br><span class="line">system.cpu.dcache.connectBus(system.l2bus)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create an L2 cache and connect it to the l2bus</span></span><br><span class="line">system.l2cache = L2Cache(args)</span><br><span class="line">system.l2cache.connectCPUSideBus(system.l2bus)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a memory bus</span></span><br><span class="line">system.membus = SystemXBar()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Connect the L2 cache to the membus</span></span><br><span class="line">system.l2cache.connectMemSideBus(system.membus)</span><br><span class="line"></span><br><span class="line"><span class="comment"># create the interrupt controller for the CPU</span></span><br><span class="line">system.cpu.createInterruptController()</span><br><span class="line"></span><br><span class="line"><span class="comment"># For x86 only, make sure the interrupts are connected to the memory</span></span><br><span class="line"><span class="comment"># Note: these are directly connected to the memory bus and are not cached</span></span><br><span class="line"><span class="keyword">if</span> m5.defines.buildEnv[<span class="string">&#x27;TARGET_ISA&#x27;</span>] == <span class="string">&quot;x86&quot;</span>:</span><br><span class="line">    system.cpu.interrupts[<span class="number">0</span>].pio = system.membus.mem_side_ports</span><br><span class="line">    system.cpu.interrupts[<span class="number">0</span>].int_requestor = system.membus.cpu_side_ports</span><br><span class="line">    system.cpu.interrupts[<span class="number">0</span>].int_responder = system.membus.mem_side_ports</span><br><span class="line"></span><br><span class="line"><span class="comment"># Connect the system up to the membus</span></span><br><span class="line">system.system_port = system.membus.cpu_side_ports</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a DDR3 memory controller</span></span><br><span class="line">system.mem_ctrl = MemCtrl()</span><br><span class="line">system.mem_ctrl.dram = DDR3_1600_8x8()</span><br><span class="line">system.mem_ctrl.dram.<span class="built_in">range</span> = system.mem_ranges[<span class="number">0</span>]</span><br><span class="line">system.mem_ctrl.port = system.membus.mem_side_ports</span><br><span class="line"></span><br><span class="line">system.workload = SEWorkload.init_compatible(args.binary)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a process for a simple &quot;Hello World&quot; application</span></span><br><span class="line">process = Process()</span><br><span class="line"><span class="comment"># Set the command</span></span><br><span class="line"><span class="comment"># cmd is a list which begins with the executable (like argv)</span></span><br><span class="line">process.cmd = [args.binary]</span><br><span class="line"><span class="comment"># Set the cpu to use the process as its workload and create thread contexts</span></span><br><span class="line">system.cpu.workload = process</span><br><span class="line">system.cpu.createThreads()</span><br><span class="line"></span><br><span class="line"><span class="comment"># set up the root SimObject and start the simulation</span></span><br><span class="line">root = Root(full_system = <span class="literal">False</span>, system = system)</span><br><span class="line"><span class="comment"># instantiate all of the objects we&#x27;ve created above</span></span><br><span class="line">m5.instantiate()</span><br><span class="line"></span><br><span class="line">print(<span class="string">&quot;Beginning simulation!&quot;</span>)</span><br><span class="line">exit_event = m5.simulate()</span><br><span class="line">print(<span class="string">&#x27;Exiting @ tick %i because %s&#x27;</span> % (m5.curTick(), exit_event.getCause()))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
+
 <h4 id="三-the-default-configuration-scripts"><a href="#三-the-default-configuration-scripts" class="headerlink" title="三 the default configuration scripts"></a>三 the default configuration scripts</h4><p>![the default configuration scripts](./Gem5%20Intro/the default configuration scripts.png)</p>
 <h4 id="四-Options"><a href="#四-Options" class="headerlink" title="四 Options"></a>四 Options</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">build/X86/gem5.opt configs/example/se.py --<span class="built_in">help</span></span><br></pre></td></tr></table></figure>
+
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">Below are a few important options from that list:</span><br><span class="line"></span><br><span class="line">--cpu-type=CPU_TYPE</span><br><span class="line"></span><br><span class="line">The type of cpu to run with. This is an important parameter to always set. The default is atomic, which doesn’t perform a timing simulation.</span><br><span class="line">--sys-clock=SYS_CLOCK</span><br><span class="line"></span><br><span class="line">Top-level clock for blocks running at system speed.</span><br><span class="line">--cpu-clock=CPU_CLOCK</span><br><span class="line"></span><br><span class="line">Clock for blocks running at CPU speed. This is separate from the system clock above.</span><br><span class="line">--mem-type=MEM_TYPE</span><br><span class="line"></span><br><span class="line">Type of memory to use. Options include different DDR memories, and the ruby memory controller.</span><br><span class="line">--caches</span><br><span class="line"></span><br><span class="line">Perform the simulation with classic caches.</span><br><span class="line">--l2cache</span><br><span class="line"></span><br><span class="line">Perform the simulation with an L2 cache, if using classic caches.</span><br><span class="line">--ruby</span><br><span class="line"></span><br><span class="line">Use Ruby instead of the classic caches as the cache system simulation.</span><br><span class="line">-m TICKS, --abs-max-tick=TICKS</span><br><span class="line"></span><br><span class="line">Run to absolute simulated tick specified including ticks from a restored checkpoint. This is useful if you only want simulate for a certain amount of simulated time.</span><br><span class="line">-I MAXINSTS, --maxinsts=MAXINSTS</span><br><span class="line"></span><br><span class="line">Total number of instructions to simulate (default: run forever). This is useful if you want to stop simulation after a certain number of instructions has been executed.</span><br><span class="line">-c CMD, --cmd=CMD</span><br><span class="line"></span><br><span class="line">The binary to run in syscall emulation mode.</span><br><span class="line">-o OPTIONS, --options=OPTIONS</span><br><span class="line"></span><br><span class="line">The options to pass to the binary, use ” ” around the entire string. This is useful when you are running a command which takes options. You can pass both arguments and options (e.g., –whatever) through this variable.</span><br><span class="line">--output=OUTPUT</span><br><span class="line"></span><br><span class="line">Redirect stdout to a file. This is useful if you want to redirect the output of the simulated application to a file instead of printing to the screen. Note: to redirect gem5 output, you have to pass a parameter before the configuration script.</span><br><span class="line">--errout=ERROUT</span><br><span class="line"></span><br><span class="line">Redirect stderr to a file. Similar to above.</span><br></pre></td></tr></table></figure>
+
 <h3 id="三实验中的代码"><a href="#三实验中的代码" class="headerlink" title="三实验中的代码"></a>三实验中的代码</h3><h5 id="实验二"><a href="#实验二" class="headerlink" title="实验二"></a>实验二</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">build/X86/gem5.opt configs/example/fs.py --kernel=x86_64-vmlinux-2.6.22.9 --disk-image=linux-x86.img</span><br></pre></td></tr></table></figure>
+
 
 
 <h5 id="实验三"><a href="#实验三" class="headerlink" title="实验三"></a>实验三</h5><p>三级缓存的默认设置:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">  测试l3cache</span></span><br><span class="line">build/X86/gem5.opt configs/example/se.py --caches --l2cache --l3cache --l3_size=2MB --cmd=tests/test-progs/hello/bin/x86/linux/hello</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">弹性 trace 的捕捉和重播</span></span><br><span class="line">build/X86/gem5.opt -d test_trace configs/example/se.py \</span><br><span class="line">--cpu-type=DerivO3CPU \</span><br><span class="line">--caches \</span><br><span class="line">--cmd=../gapbs/bfs --options=&quot;-f ../gapbs/test/graphs/4.el -n 1&quot; \</span><br><span class="line">--elastic-trace-en \</span><br><span class="line">--data-trace-file=data.proto.gz \</span><br><span class="line">--inst-trace-file=inst.proto.gz \</span><br><span class="line">--mem-type=SimpleMemory</span><br><span class="line"></span><br><span class="line">../util/decode_inst_dep_trace.py ./system.cpu.traceListener.data.proto.gz ./data.out</span><br><span class="line">../util/decode_packet_trace.py ./system.cpu.traceListener.inst.proto.gz ./inst.out</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">生成的指令和数据进行重播</span></span><br><span class="line">build/X86/gem5.opt -d replay_trace configs/example/etrace_replay.py \</span><br><span class="line">--cpu-type=TraceCPU \</span><br><span class="line">--data-trace-file=test_trace/system.cpu.traceListener.data.proto.gz \</span><br><span class="line">--inst-trace-file=test_trace/system.cpu.traceListener.inst.proto.gz \</span><br><span class="line">--num-cpus=1 --caches \</span><br><span class="line">--l1i_size=32kB --l1i_assoc=8 --l1d_size=32kB --l1d_assoc=8 \</span><br><span class="line">--l2cache --num-l2caches=1 --l2_size=256kB --l2_assoc=8 \</span><br><span class="line">--l3cache --num-l3caches=1 --l3_size=2MB --l3_assoc=16 \</span><br><span class="line">--cacheline_size=64 --mem-type=SimpleMemory --mem-size=4GB</span><br></pre></td></tr></table></figure>
+
 <h5 id="实验四"><a href="#实验四" class="headerlink" title="实验四"></a>实验四</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">build/X86/gem5.opt -d test_vans configs/example/se.py \</span><br><span class="line">--cmd=../gapbs/bfs --options=&quot;-f ../gapbs/test/graphs/4.el -n 1&quot; \</span><br><span class="line">--num-cpus=1 --caches \</span><br><span class="line">--l1i_size=32kB --l1i_assoc=8 --l1d_size=32kB --l1d_assoc=8 \</span><br><span class="line">--l2cache --num-l2caches=1 --l2_size=256kB --l2_assoc=8 \</span><br><span class="line">--l3cache --num-l3caches=1 --l3_size=2MB --l3_assoc=16 \</span><br><span class="line">--cacheline_size=64 --mem-type=VANS --vans-config-path=../VANS/config --mem-size=4GB</span><br></pre></td></tr></table></figure>
+
 <h6 id="对指定区域trace的捕捉和重播"><a href="#对指定区域trace的捕捉和重播" class="headerlink" title="对指定区域trace的捕捉和重播"></a>对指定区域trace的捕捉和重播</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">scons -C util/m5 build/x86/out/m5</span><br><span class="line">g++ -static -I include -o ../gapbs/src/bfs_m5 ../gapbs/src/bfs.cc util/m5/build/x86/out/libm5.a</span><br><span class="line"><span class="meta">#</span><span class="bash">gem5插入检查点</span></span><br><span class="line">build/X86/gem5.opt -d test_checkpoint configs/example/se.py \</span><br><span class="line">--cmd=../gapbs/src/bfs_m5 --options=&quot;-f ../gapbs/test/graphs/4.el -n 1&quot;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">从检查点处捕捉特定区域的 trace</span></span><br><span class="line">build/X86/gem5.opt -d test_checkpoint_trace configs/example/se.py \</span><br><span class="line">--cpu-type=DerivO3CPU \</span><br><span class="line">--cmd=../gapbs/src/bfs_m5 \</span><br><span class="line">--options=&quot;-f ../gapbs/test/graphs/4.el -n 1&quot; \</span><br><span class="line">--elastic-trace-en \</span><br><span class="line">--data-trace-file=datatrace.proto.gz \</span><br><span class="line">--inst-trace-file=insttrace.proto.gz \</span><br><span class="line">--num-cpus=1 --caches --mem-type=SimpleMemory \</span><br><span class="line">--restore-with-cpu=DerivO3CPU \</span><br><span class="line">--checkpoint-dir=test_checkpoint -r 1</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">对 checkpoint trace 进行重播</span></span><br><span class="line">build/X86/gem5.opt -d cktrace_replay configs/example/etrace_replay.py \</span><br><span class="line">--cpu-type=TraceCPU \</span><br><span class="line">--data-trace-file=test_checkpoint_trace/system.cpu.traceListener.datatrace.proto.gz \</span><br><span class="line">--inst-trace-file=test_checkpoint_trace/system.cpu.traceListener.insttrace.proto.gz \</span><br><span class="line">--num-cpus=1 --caches \</span><br><span class="line">--l1i_size=32kB --l1i_assoc=8 --l1d_size=32kB --l1d_assoc=8 \</span><br><span class="line">--l2cache --num-l2caches=1 --l2_size=256kB --l2_assoc=8 \</span><br><span class="line">--cacheline_size=64 --mem-type=VANS --vans-config-path=../VANS/config --mem-size=4GB</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
-  <ul class="post-copyright list-unstyled">
-    
-    <li class="post-copyright-link hidden-xs">
-      <strong>本文链接：</strong>
-      <a href="http://okeyia.github.io/2022/01/05/Gem5%20Intro/" title="Gem5 Intro" target="_blank" rel="external">http://okeyia.github.io/2022/01/05/Gem5%20Intro/</a>
-    </li>
-    
-    <li class="post-copyright-license">
-      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
-    </li>
-  </ul>
-</blockquote>
-
-
-<div class="panel panel-default panel-badger">
-  <div class="panel-body">
-    <figure class="media">
-      <div class="media-left">
-        <a href="https://github.com/okeyia" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
-        </a>
-      </div>
-      <div class="media-body">
-        <h3 class="media-heading"><a href="https://github.com/okeyia" target="_blank"><span class="text-dark">okeyia</span><small class="ml-1x">Web Developer &amp; Designer</small></a></h3>
-        <div>个人简介。</div>
-      </div>
-    </figure>
-  </div>
-</div>
-
-
-    </div>
-  </article>
-  
-    
-  <section id="comments">
-  	
-      <div id="uyan_frame"></div>
-    
-  </section>
-
-
-  
-</div>
-
-  <nav class="bar bar-footer clearfix" data-stick-bottom>
-  <div class="bar-inner">
-  
-  <ul class="pager pull-left">
-    
-    
-    <li class="next">
-      <a href="/2022/01/05/b%E7%AB%99%E9%BB%91%E9%A9%ACC++%E5%AD%A6%E4%B9%A0/" title="黑马C++ 核心编程"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
-    </li>
-    
-    
-  </ul>
-  
-  
-  
-  <div class="bar-right">
-    
-  </div>
-  </div>
-</nav>
-  
-
-
-</main>
-
-  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
-	
-    <div class="copyright">
-    	
-        <div class="publishby">
-        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
-        </div>
-    </div>
-</footer>
-  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
-<script>
-window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
-</script>
-
-<script src="/js/plugin.min.js"></script>
-
-
-<script src="/js/application.js"></script>
-
-
-    <script>
-(function (window) {
-    var INSIGHT_CONFIG = {
-        TRANSLATION: {
-            POSTS: 'Posts',
-            PAGES: 'Pages',
-            CATEGORIES: 'Categories',
-            TAGS: 'Tags',
-            UNTITLED: '(Untitled)',
-        },
-        ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
-    };
-    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-})(window);
-</script>
-
-<script src="/js/insight.js"></script>
-
-
-
-
-
-
-   
-
-
-
-
-   
-    
-    <script defer type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=[object Object]"></script>
-
-
-
-
-
-
-
-
-</body>
-</html>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">okeyia</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://okeyia.github.io/2022/01/05/Gem5%20Intro/">http://okeyia.github.io/2022/01/05/Gem5%20Intro/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://okeyia.github.io" target="_blank">okeyia</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Gem5/">Gem5</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/01/05/C++%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/"><img class="next-cover" src="https://s2.loli.net/2022/01/09/z4Birt7quLPgybk.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">黑马C++ 核心编程</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80-gem5%E4%BB%8B%E7%BB%8D"><span class="toc-text">一 gem5介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#cpu%E6%A8%A1%E5%9E%8B"><span class="toc-text">cpu模型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C-%E5%AE%98%E7%BD%91%E5%AE%9E%E9%AA%8C"><span class="toc-text">二 官网实验</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80-simply-py"><span class="toc-text">一 simply.py</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C-two-level-py"><span class="toc-text">二 two-level.py</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89-the-default-configuration-scripts"><span class="toc-text">三 the default configuration scripts</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9B-Options"><span class="toc-text">四 Options</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E5%AE%9E%E9%AA%8C%E4%B8%AD%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="toc-text">三实验中的代码</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%BA%8C"><span class="toc-text">实验二</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%B8%89"><span class="toc-text">实验三</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%9B%9B"><span class="toc-text">实验四</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AF%B9%E6%8C%87%E5%AE%9A%E5%8C%BA%E5%9F%9Ftrace%E7%9A%84%E6%8D%95%E6%8D%89%E5%92%8C%E9%87%8D%E6%92%AD"><span class="toc-text">对指定区域trace的捕捉和重播</span></a></li></ol></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By okeyia</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
