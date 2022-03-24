@@ -6,7 +6,7 @@
   <link href="http://okeyia.github.io/atom.xml" rel="self"/>
   
   <link href="http://okeyia.github.io/"/>
-  <updated>2022-03-11T07:32:47.360Z</updated>
+  <updated>2022-03-12T10:51:30.093Z</updated>
   <id>http://okeyia.github.io/</id>
   
   <author>
@@ -17,13 +17,33 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title></title>
+    <link href="http://okeyia.github.io/2022/03/12/Oh-my-zsh%20%E9%85%8D%E7%BD%AE/"/>
+    <id>http://okeyia.github.io/2022/03/12/Oh-my-zsh%20%E9%85%8D%E7%BD%AE/</id>
+    <published>2022-03-12T10:29:41.965Z</published>
+    <updated>2022-03-12T10:51:30.093Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Oh-my-zsh-配置教程"><a href="#Oh-my-zsh-配置教程" class="headerlink" title="Oh-my-zsh 配置教程"></a>Oh-my-zsh 配置教程</h2><h3 id="1-安装zsh"><a href="#1-安装zsh" class="headerlink" title="1 安装zsh"></a>1 安装zsh</h3><p>以ubuntu为例:</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install zsh</span><br></pre></td></tr></table></figure><h3 id="2-下载oh-my-zsh-源码"><a href="#2-下载oh-my-zsh-源码" class="headerlink" title="2 下载oh-my-zsh 源码"></a>2 下载oh-my-zsh 源码</h3><h3 id="3-安装-oh-my-zsh插件及主题"><a href="#3-安装-oh-my-zsh插件及主题" class="headerlink" title="3 安装 oh-my-zsh插件及主题"></a>3 安装 oh-my-zsh插件及主题</h3>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;Oh-my-zsh-配置教程&quot;&gt;&lt;a href=&quot;#Oh-my-zsh-配置教程&quot; class=&quot;headerlink&quot; title=&quot;Oh-my-zsh 配置教程&quot;&gt;&lt;/a&gt;Oh-my-zsh 配置教程&lt;/h2&gt;&lt;h3 id=&quot;1-安装zsh&quot;&gt;&lt;a href=</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>杂记</title>
     <link href="http://okeyia.github.io/2022/03/01/%E6%9D%82%E8%AE%B0/"/>
     <id>http://okeyia.github.io/2022/03/01/%E6%9D%82%E8%AE%B0/</id>
     <published>2022-03-01T06:12:56.000Z</published>
-    <updated>2022-03-11T07:32:47.360Z</updated>
+    <updated>2022-03-24T04:30:55.953Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="/2022/03/01/%E6%9D%82%E8%AE%B0/argc_argv.png" alt="argc_argv"><img src="/2022/03/01/%E6%9D%82%E8%AE%B0/target.png" alt="target"></p><p><img src="/2022/03/01/%E6%9D%82%E8%AE%B0/git%E4%BB%A3%E7%90%86.png" alt="git 设置"></p>]]></content>
+    <content type="html"><![CDATA[<p><img src="/2022/03/01/%E6%9D%82%E8%AE%B0/argc_argv.png" alt="argc_argv"><img src="/2022/03/01/%E6%9D%82%E8%AE%B0/target.png" alt="target"></p><p><img src="/2022/03/01/%E6%9D%82%E8%AE%B0/git%E4%BB%A3%E7%90%86.png" alt="git 设置"></p><p><img src="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202203241229563.png" alt="Clion带参数配置"></p>]]></content>
     
     
       
