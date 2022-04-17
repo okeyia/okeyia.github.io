@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://okeyia.github.io/2022/01/05/Gem5%20Intro/</loc>
+    
+    <lastmod>2022-04-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://okeyia.github.io/2022/01/03/%E8%81%8C%E5%B7%A5%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/</loc>
     
     <lastmod>2022-04-17</lastmod>
@@ -128,15 +137,6 @@
   </url>
   
   <url>
-    <loc>http://okeyia.github.io/Gem5%20Intro.html</loc>
-    
-    <lastmod>2022-03-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://okeyia.github.io/2021/02/03/docker-ankiserver/</loc>
     
     <lastmod>2022-03-29</lastmod>
@@ -252,6 +252,13 @@
   
   <url>
     <loc>http://okeyia.github.io/tags/Computer-Architecture/</loc>
+    <lastmod>2022-04-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://okeyia.github.io/tags/Gem5/</loc>
     <lastmod>2022-04-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
