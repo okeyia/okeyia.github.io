@@ -6,7 +6,7 @@
   <link href="http://okeyia.github.io/atom.xml" rel="self"/>
   
   <link href="http://okeyia.github.io/"/>
-  <updated>2022-05-09T09:33:45.322Z</updated>
+  <updated>2022-05-11T06:15:07.249Z</updated>
   <id>http://okeyia.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>复现论文实验</title>
+    <title>How-to-read-papers</title>
     <link href="http://okeyia.github.io/2022/05/09/How-to-read-papers/"/>
     <id>http://okeyia.github.io/2022/05/09/How-to-read-papers/</id>
     <published>2022-05-09T09:29:40.000Z</published>
-    <updated>2022-05-09T09:33:45.322Z</updated>
+    <updated>2022-05-11T06:15:07.249Z</updated>
     
     <content type="html"><![CDATA[<h2 id="如何阅读论文"><a href="#如何阅读论文" class="headerlink" title="如何阅读论文"></a>如何阅读论文</h2><blockquote><p>研一萌新, 最近在读论文的时候, 读到后半部分，前面讲的什么东西都已经忘完了, 不得不重新回顾。这样读起来有种深陷泥潭、举步维艰的感觉，然后觉得可能是自己读论文的方法有问题——没有从整体上把握整篇论文，只陷于个细节里面去了。感觉自己是时候该学习一下读论文的方法,  提高自己效率。</p></blockquote><p>通常来说，读论文一般有以下四个要素：</p><ul><li>What 这篇论文要解决什么问题？</li><li>Why 这篇文章为什么要解决这个问题, 解决这个问题有什么意义?<ul><li>Importance, implication, relevance</li><li>切入点：现有文献、研究方法</li></ul></li><li>how 这篇文章如何解决了这个问题?<ul><li>Problem formulation, research methods, data, experiments, etc</li></ul></li><li>what 解决这篇文章之后得到怎么样的结论<ul><li>Conclusions, perspectives, outlook, etc.</li></ul></li></ul><h3 id="1-论文各部分的重要性"><a href="#1-论文各部分的重要性" class="headerlink" title="1 论文各部分的重要性"></a>1 论文各部分的重要性</h3><ol><li>摘要 abstract: 论文最重要的部分，一般由导师直接把关</li><li>引言 introduction: 重要性仅次于摘要，内容更加易懂</li><li>相关工作 related work: 对领域内工作的分类和总结</li><li>其他章节: 论文细节，对于理解本论文非常重要。</li><li>总结 conclusion: 全文总结和展望</li><li>参考文献 reference: 论文引用的文献列表</li><li>附录 Appendix: 部分无法放到正文中的内容，如过分细节的证明和算法</li></ol><h3 id="2-快速阅读（泛读）"><a href="#2-快速阅读（泛读）" class="headerlink" title="2 快速阅读（泛读）"></a>2 快速阅读（泛读）</h3><p>如果时间有限，直接读abstract是最高效的方法。如果时间还很充裕，那么就把introduction也读一遍。读完这两部分，就应该能基本理解论文的核心思想。</p><p><strong>WARNING</strong>:读得速度越快，对论文的理解越差，甚至会出现误解。因此，想要好好理解一篇论文，精读是非常必要的。</p><h3 id="3-精读"><a href="#3-精读" class="headerlink" title="3 精读"></a>3 精读</h3><p>通过泛读（快速）阅读筛选完论文之后，需要精读部分的重要论文。我个人建议将精读分为几个阶段进行:</p><ol><li>理解论文基本原理: motivation，所用的理论？</li><li>理解论文详细内容: 深入理解论文细节，包括定义、假设和相关公式等</li><li><del>能够重现实验</del>（未必需要）: 能否重现整个实验，并得到相同结果？</li><li>组织讨论: 与其他人进行讨论，可能有没有疏忽的地方？或者理解不到位的地方？</li><li>设计更好的方案: 能不能更进一步，设计更好的方法？</li></ol><p><strong>每个阶段可以对应一次或者多次阅读，通过多次阅读来加深对论文的理解</strong>。不要指望一口气能够理解整篇论文。很多原因会造成理解不够深入甚至理解错误，例如现阶段的知识面不够，或者对于某些概念理解错误等。所以需要多次阅读（如果有必要，多次讨论）来避免这类问题。</p><p><strong>WARNING</strong>:讨论是非常必要的（最好由阅读论文的人主讲），当其他人从他的角度提出疑问时，很可能会给意想不到的惊喜。</p><h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><ol><li><a href="https://github.com/Richardyu114/How-to-Read-and-Write-Research-Paper">How-to-Read-and-Write-Research-Paper</a></li><li><a href="https://github.com/qiyuangong/How_to_Search_and_Read_a_Paper">How_to_Search_and_Read_a_Paper</a></li></ol>]]></content>
     
