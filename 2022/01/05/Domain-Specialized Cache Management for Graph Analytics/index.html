@@ -1,0 +1,224 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>C++ 核心编程 | okeyia</title><meta name="keywords" content="C++"><meta name="author" content="okeyia"><meta name="copyright" content="okeyia"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Domain-Specialized Cache Management for Graph Analytics一 what(要解决什么问题)二 why为什么要解决这个问题三 how怎么解决这个问题GRASP augments existing cache policies to maximize reuse of hot vertices by protecting them against ca">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ 核心编程">
+<meta property="og:url" content="http://okeyia.github.io/2022/01/05/Domain-Specialized%20Cache%20Management%20for%20Graph%20Analytics/index.html">
+<meta property="og:site_name" content="okeyia">
+<meta property="og:description" content="Domain-Specialized Cache Management for Graph Analytics一 what(要解决什么问题)二 why为什么要解决这个问题三 how怎么解决这个问题GRASP augments existing cache policies to maximize reuse of hot vertices by protecting them against ca">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202203291944779.jpg">
+<meta property="article:published_time" content="2022-01-05T03:43:57.000Z">
+<meta property="article:modified_time" content="2022-05-14T05:37:56.488Z">
+<meta property="article:author" content="okeyia">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202203291944779.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://okeyia.github.io/2022/01/05/Domain-Specialized%20Cache%20Management%20for%20Graph%20Analytics/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'C++ 核心编程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: undefined,
+  isToc: true,
+  postUpdate: '2022-05-14 13:37:56'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="okeyia" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202204171749626.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> Books</span></a></div><div class="menus_item"><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202203291944779.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">okeyia</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> Books</span></a></div><div class="menus_item"><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">C++ 核心编程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-05T03:43:57.000Z" title="发表于 2022-01-05 11:43:57">2022-01-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-14T05:37:56.488Z" title="更新于 2022-05-14 13:37:56">2022-05-14</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="C++ 核心编程"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="Domain-Specialized-Cache-Management-for-Graph-Analytics"><a href="#Domain-Specialized-Cache-Management-for-Graph-Analytics" class="headerlink" title="Domain-Specialized Cache Management for Graph Analytics"></a>Domain-Specialized Cache Management for Graph Analytics</h3><h4 id="一-what-要解决什么问题"><a href="#一-what-要解决什么问题" class="headerlink" title="一 what(要解决什么问题)"></a>一 what(要解决什么问题)</h4><h4 id="二-why为什么要解决这个问题"><a href="#二-why为什么要解决这个问题" class="headerlink" title="二 why为什么要解决这个问题"></a>二 why为什么要解决这个问题</h4><h4 id="三-how怎么解决这个问题"><a href="#三-how怎么解决这个问题" class="headerlink" title="三 how怎么解决这个问题"></a>三 how怎么解决这个问题</h4><p>GRASP augments existing cache policies to maximize reuse of hot vertices by protecting them against cache thrashing, while maintaining sufficient flexibility to capture the reuse of other vertices as needed.</p>
+<ul>
+<li><h4 id="论文中提出的图重排序方法的作用对象和机制以及与其他重排序方法的区别"><a href="#论文中提出的图重排序方法的作用对象和机制以及与其他重排序方法的区别" class="headerlink" title="论文中提出的图重排序方法的作用对象和机制以及与其他重排序方法的区别"></a>论文中提出的图重排序方法的作用对象和机制以及与其他重排序方法的区别</h4></li>
+</ul>
+<blockquote>
+<p>这并未提出新的重排序方法, 而是使用已有的重排序方法,  引用下面两篇论文.</p>
+<ul>
+<li> [A Closer Look at Lightweight Graph Reordering](# A Closer Look at Lightweight Graph Reordering)</li>
+<li>[Making caches work for graph analytics](# Making caches work for graph analytics)</li>
+</ul>
+</blockquote>
+<p>![image-20220511164905637](Domain-Specialized Cache Management for Graph Analytics/image-20220511164905637.png)</p>
+<center>(a) Software applies vertex reordering, which segregates hot vertices at the beginning of the array. 
+(b) GRASP interface exposes an ABR pair per Property Array to be configured with the bounds of the array. (c) GRASP identifies regions exhibiting different reuse based on an LLC size. </center>
+
+<ul>
+<li>Page5  论文中是如何识别热数据顶点，如何pinpoint(准确找到)热数据区域以及如何对访问进行归类；</li>
+</ul>
+<blockquote>
+<ul>
+<li><p>Conveniently, the hottest vertices are located at the beginning of the Property Array in a contiguous region thanks to the application of skew-aware reordering as seen in Fig. 3(a).  <strong>也就是说, 热顶点是通过排序得到的</strong>。</p>
+</li>
+<li><p>会在属性数组起始地址抓两个LLC-sized 的子区域， 一个 HIgh Reuse Region, 另一个Moderate Reuse Region.</p>
+</li>
+<li><p>GRASP determines this by comparing the address with the bounds of the High Reuse Region of each Property Array. </p>
+<p>![image-20220511165057988](Domain-Specialized Cache Management for Graph Analytics/image-20220511165057988.png)</p>
+<p>GRASP encodes the classification result (High-Reuse, Moderate-Reuse, Low-Reuse or Default) as a 2-bit Reuse Hint, and forwards it to the LLC along with each cache request, as shown in Fig. 4, to guide specialized insertion and hit-promotion policies as described next.</p>
+</li>
+</ul>
+</blockquote>
+<h4 id="四-what-解决之后得到什么结论"><a href="#四-what-解决之后得到什么结论" class="headerlink" title="四 what 解决之后得到什么结论"></a>四 what 解决之后得到什么结论</h4><h4 id="4-1-Graph-process-framework"><a href="#4-1-Graph-process-framework" class="headerlink" title="4.1 Graph process framework"></a>4.1 Graph process framework</h4><blockquote>
+<p>ligra, a widely used graph processing framework that supports both pull- and push-based computations, including switching from pull to push (and vice versa) at the start of every iteration. </p>
+</blockquote>
+<h4 id="4-2-Software-evaluation"><a href="#4-2-Software-evaluation" class="headerlink" title="4.2  Software evaluation"></a>4.2  Software evaluation</h4><p>论文中涉及的重排序技术</p>
+<blockquote>
+<p><strong>Sort</strong>  reorders vertices in the memory space by sorting them in the descending order of their degree.</p>
+</blockquote>
+<blockquote>
+<p><strong>HubSort</strong>  segregates(隔离) hot vertices in a contiguous region by assigning them a continuous range of vertex IDs in their descending order of degree. In doing so, Hub Sorting essentially sorts all hot vertices, while largely preserving structure for the cold vertices.</p>
+</blockquote>
+<blockquote>
+<p><strong>DBG</strong> , unlike Sort and HubSort, does not rely on sorting to segregate hot vertices. Instead, DBG coarsely(粗略的) partitions all vertices into a small number of groups based on their degree. Similar to Sort and HubSort, DBG is effective at improving spatial locality; however, unlike the other two techniques, DBG is able to largely preserve the existing graph structure.</p>
+</blockquote>
+<blockquote>
+<p><strong>Gorder</strong> is evaluated as a representative of complex techniques. As Gorder is only available in a single-thread implementation, while reporting the net runtime of Gorder for a given dataset, we optimistically divide the reordering time by 40 (maximum number of threads supported on the server) to provide a fair comparison with skew-aware techniques whose reordering implementation is fully parallelized.</p>
+</blockquote>
+<h3 id="A-Closer-Look-at-Lightweight-Graph-Reordering"><a href="#A-Closer-Look-at-Lightweight-Graph-Reordering" class="headerlink" title="A Closer Look at Lightweight Graph Reordering"></a>A Closer Look at Lightweight Graph Reordering</h3><h4 id="二-why"><a href="#二-why" class="headerlink" title="二 why"></a>二 why</h4><p>To address the limitations of existing skew-aware reordering techniques, </p>
+<ul>
+<li> Sort achieves the maximum reduction in the cache footprint of hot vertices. However, in doing so, Sort completely decimates existing graph structure</li>
+<li>Hub Sorting and Hub Clustering both classify vertices as hot or cold based on their degree and preserve the structure for cold vertices. However, in dealing with hot vertices, they resort to inefficient extremes. </li>
+<li>At one extreme, Hub Sorting employs fine-grain reordering that sorts all hot vertices, destroying existing graph structure. At the other extreme, Hub Clustering does not apply any kind of reordering among hot vertices, sacrificing significant opportunity in improving cache efficiency</li>
+</ul>
+<p>we propose Degree-Based Grouping <a target="_blank" rel="noopener" href="https://github.com/faldupriyank/dbg">DBG</a>。</p>
+<h4 id="三-how"><a href="#三-how" class="headerlink" title="三 how"></a>三 how</h4><h5 id="3-1-the-dbg-algorithm"><a href="#3-1-the-dbg-algorithm" class="headerlink" title="3.1 the dbg algorithm"></a>3.1 the dbg algorithm</h5><p>![image-20220512161706297](Domain-Specialized Cache Management for Graph Analytics/image-20220512161706297.png)</p>
+<center>  DBG algorithm. Degree can be in-degree or out-degree
+or sum of both.</center>
+
+<h5 id="3-2-the-dbg-example"><a href="#3-2-the-dbg-example" class="headerlink" title="3.2 the dbg example"></a>3.2 the dbg example</h5><p> Vertex degree is shown inside the box while original vertex ID is shown below the box.</p>
+<p>Vertex ordering in memory after DBG. In this example, DBG partitions vertices into three groups with degree ranges [0, 20), [20, 40) and [40, 80). DBG maintains a relative order of vertices within a group. As a result, many vertices are placed nearby the same vertices as before the reordering such as vertex sets (P4, P5, P6), (P0, P1) and (P10, P11).</p>
+<p>![image-20220512162204354](Domain-Specialized Cache Management for Graph Analytics/image-20220512162204354.png)</p>
+<center>Vertex ordering in memory after DBG. </center>
+
+<h5 id="3-3-运行作者实验"><a href="#3-3-运行作者实验" class="headerlink" title="3.3 运行作者实验"></a>3.3 运行作者实验</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">1. 编译 这一步注意设置DBG_ROOT, 要不然下面第二部会出现错误</span></span><br><span class="line">export DBG_ROOT=&#x27;/home/server2/dbg&#x27;</span><br><span class="line">cd ~/dbg/apps</span><br><span class="line">make -j </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">2. 下载数据集</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//el --&gt; edge list of the form (src, dst) <span class="keyword">in</span> text file</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//bel --&gt; edge list of the form (src, dst) <span class="keyword">in</span> binary file</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//vgr --&gt; binary csr format with no weight <span class="keyword">for</span> edges</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//cvgr --&gt; binary csr format with no weight <span class="keyword">for</span> edges (no self or redundant edges)</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//csvgr --&gt; binary csr format with no weight <span class="keyword">for</span> edges (no self or redundant edges)</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//         graph is symmetric -- so <span class="keyword">for</span> every edge (u, v) there also exist (v, u)</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//cintgr --&gt; binary csr format with int weight <span class="keyword">for</span> edges (no slef or redundant edges)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">//edges are assumed to take 8 bytes and vertices (and edge weights) are assumed to take 4 bytes <span class="keyword">in</span> binary file</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">//all *gr files contain a header of 24 bytes as follows:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//number of vertices</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//number of edges</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//major number</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//minor number</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//gr files are implemented based on the implementation from Galois.</span></span><br><span class="line"></span><br><span class="line">wget http://snap.stanford.edu/data/web-Google.txt.gz</span><br><span class="line">gunzip web-Google.txt.gz</span><br><span class="line">../graph-convert-utils/clean_edgelist.py web-Google.txt web-Google.el</span><br><span class="line">../graph-convert-utils/convert.sh web-Google</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">3. Run individual application， 运行之前安装numactl，否则会出现错误。 安装命令 sudo apt install numactl</span></span><br><span class="line">make REORDERING_ALGO=5 DEGREE_USED_FOR_REORDERING=0 DATASET=web-Google run-PageRank</span><br></pre></td></tr></table></figure>
+
+<p>![image-20220513152610369](Domain-Specialized Cache Management for Graph Analytics/image-20220513152610369.png)</p>
+<h3 id="Making-caches-work-for-graph-analytics"><a href="#Making-caches-work-for-graph-analytics" class="headerlink" title="Making caches work for graph analytics"></a>Making caches work for graph analytics</h3><p>Hub sorting was proposed as a variant of Sort that aims to preserve some structure while reducing the cache footprint of hot vertices.</p>
+<h3 id="Speedup-Graph-Processing-by-Graph-Ordering"><a href="#Speedup-Graph-Processing-by-Graph-Ordering" class="headerlink" title="Speedup Graph Processing by Graph Ordering"></a>Speedup Graph Processing by Graph Ordering</h3><p>Gorder—— the state-of-the-art structure-aware reordering technique.</p>
+<h3 id="如何直接对属性数组进行冷热数据分离"><a href="#如何直接对属性数组进行冷热数据分离" class="headerlink" title="如何直接对属性数组进行冷热数据分离"></a>如何直接对属性数组进行冷热数据分离</h3><blockquote>
+<p>这里对冷热数据分离是什么意思?  </p>
+<p>是划分出high reuse region、Moderate （适度）Reuse Region， 不常用数据？</p>
+</blockquote>
+<h4 id="1-1-DBG-实验"><a href="#1-1-DBG-实验" class="headerlink" title="1.1 DBG 实验"></a>1.1 DBG 实验</h4><p>在dbg的实验中, 将el格式的图转为了cvgr –&gt; binary csr format with no weight for edges (no self or redundant edges), cintgr –&gt; binary csr format with int weight for edges (no slef or redundant edges)。pagerank算法应该是借助 ligra 使用了 cvgr格式的图。这里的话没有cache，还需要自己配置才能获取到冷热数据，因此还要看以前的grasp这个仓库。</p>
+<h4 id="1-2-grasp实验"><a href="#1-2-grasp实验" class="headerlink" title="1.2 grasp实验"></a>1.2 grasp实验</h4><p>在[Domain-Specialized Cache Management for Graph Analytics ](# Domain-Specialized Cache Management for Graph Analytics) 这篇论文中,  通过dbg重排序后，作者直接定义了两个cache大小的区域, 分别获取high、 moderate 区域。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">okeyia</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://okeyia.github.io/2022/01/05/Domain-Specialized%20Cache%20Management%20for%20Graph%20Analytics/">http://okeyia.github.io/2022/01/05/Domain-Specialized%20Cache%20Management%20for%20Graph%20Analytics/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://okeyia.github.io" target="_blank">okeyia</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C/">C++</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/01/05/C++%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202203291944779.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">C++ 核心编程</div></div></a></div><div class="next-post pull-right"><a href="/2022/01/03/%E8%81%8C%E5%B7%A5%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202203291950381.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">基于多态的企业职工系统</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/10/24/%E5%85%B3%E4%BA%8EC-%E4%B8%AD%E6%8C%87%E9%92%88%E7%9A%84%E7%90%86%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/" title="关于C++中指针的理解及其应用"><img class="cover" src="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202203291949101.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-10-24</div><div class="title">关于C++中指针的理解及其应用</div></div></a></div><div><a href="/2022/01/27/%E5%9F%BA%E4%BA%8ESTL%E7%9A%84%E6%BC%94%E8%AE%B2%E6%AF%94%E8%B5%9B%E6%B5%81%E7%A8%8B%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" title="基于STL的演讲比赛流程管理系统"><img class="cover" src="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202203291949254.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-27</div><div class="title">基于STL的演讲比赛流程管理系统</div></div></a></div><div><a href="/2022/01/05/C++%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/" title="C++ 核心编程"><img class="cover" src="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202203291944779.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-05</div><div class="title">C++ 核心编程</div></div></a></div><div><a href="/2022/01/03/%E8%81%8C%E5%B7%A5%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" title="基于多态的企业职工系统"><img class="cover" src="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202203291950381.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-03</div><div class="title">基于多态的企业职工系统</div></div></a></div><div><a href="/2022/01/29/%E6%9C%BA%E6%88%BF%E9%A2%84%E7%BA%A6%E7%B3%BB%E7%BB%9F/" title="机房预约系统"><img class="cover" src="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202203291949984.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-29</div><div class="title">机房预约系统</div></div></a></div><div><a href="/2022/01/24/C++%E6%8F%90%E9%AB%98%E7%BC%96%E7%A8%8B/" title="C++ 提高编程"><img class="cover" src="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202203291945320.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-24</div><div class="title">C++ 提高编程</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Domain-Specialized-Cache-Management-for-Graph-Analytics"><span class="toc-text">Domain-Specialized Cache Management for Graph Analytics</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80-what-%E8%A6%81%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98"><span class="toc-text">一 what(要解决什么问题)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C-why%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%A7%A3%E5%86%B3%E8%BF%99%E4%B8%AA%E9%97%AE%E9%A2%98"><span class="toc-text">二 why为什么要解决这个问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89-how%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%E8%BF%99%E4%B8%AA%E9%97%AE%E9%A2%98"><span class="toc-text">三 how怎么解决这个问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BA%E6%96%87%E4%B8%AD%E6%8F%90%E5%87%BA%E7%9A%84%E5%9B%BE%E9%87%8D%E6%8E%92%E5%BA%8F%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%9C%E7%94%A8%E5%AF%B9%E8%B1%A1%E5%92%8C%E6%9C%BA%E5%88%B6%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E9%87%8D%E6%8E%92%E5%BA%8F%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">论文中提出的图重排序方法的作用对象和机制以及与其他重排序方法的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9B-what-%E8%A7%A3%E5%86%B3%E4%B9%8B%E5%90%8E%E5%BE%97%E5%88%B0%E4%BB%80%E4%B9%88%E7%BB%93%E8%AE%BA"><span class="toc-text">四 what 解决之后得到什么结论</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-Graph-process-framework"><span class="toc-text">4.1 Graph process framework</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-Software-evaluation"><span class="toc-text">4.2  Software evaluation</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#A-Closer-Look-at-Lightweight-Graph-Reordering"><span class="toc-text">A Closer Look at Lightweight Graph Reordering</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C-why"><span class="toc-text">二 why</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89-how"><span class="toc-text">三 how</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-the-dbg-algorithm"><span class="toc-text">3.1 the dbg algorithm</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-the-dbg-example"><span class="toc-text">3.2 the dbg example</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-3-%E8%BF%90%E8%A1%8C%E4%BD%9C%E8%80%85%E5%AE%9E%E9%AA%8C"><span class="toc-text">3.3 运行作者实验</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Making-caches-work-for-graph-analytics"><span class="toc-text">Making caches work for graph analytics</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Speedup-Graph-Processing-by-Graph-Ordering"><span class="toc-text">Speedup Graph Processing by Graph Ordering</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%9B%B4%E6%8E%A5%E5%AF%B9%E5%B1%9E%E6%80%A7%E6%95%B0%E7%BB%84%E8%BF%9B%E8%A1%8C%E5%86%B7%E7%83%AD%E6%95%B0%E6%8D%AE%E5%88%86%E7%A6%BB"><span class="toc-text">如何直接对属性数组进行冷热数据分离</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-DBG-%E5%AE%9E%E9%AA%8C"><span class="toc-text">1.1 DBG 实验</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-grasp%E5%AE%9E%E9%AA%8C"><span class="toc-text">1.2 grasp实验</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By okeyia</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
