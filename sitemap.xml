@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://okeyia.github.io/2022/05/09/How-to-read-papers/</loc>
+    
+    <lastmod>2022-07-26</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://okeyia.github.io/2022/07/27/Processor-Counter-Monitor%E6%B5%8B%E9%87%8Fcache%E5%8F%8A%E5%B8%A6%E5%AE%BD%20/</loc>
     
     <lastmod>2022-07-26</lastmod>
@@ -32,15 +41,6 @@
     <loc>http://okeyia.github.io/2022/05/15/Domain-Specialized%20Cache%20Management%20for%20Graph%20Analytics/</loc>
     
     <lastmod>2022-05-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://okeyia.github.io/2022/05/09/How-to-read-papers/</loc>
-    
-    <lastmod>2022-05-22</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
