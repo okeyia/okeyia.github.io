@@ -1,0 +1,353 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>图处理相关论文 | okeyia</title><meta name="keywords" content="图重排序"><meta name="author" content="okeyia"><meta name="copyright" content="okeyia"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="图处理的相关论文一 多核系统中处理内存干扰的技术 17 浙大在多核系统中，同时运行的多个应用程序相互竞争访问共享的资源，如互连、高速缓 存和内存等。如果对可用的共享高速缓存容量和内存带宽的管理不恰当的话，不同应用程 序相互干扰，严重影响对方的运行。  例如，在内存处，应用程序原有的行缓冲命中率和阵列级并行度会受到破坏，同时请求在读写队列中等待的时间也会因竞争激烈程度的加剧而 大幅增加；在高速缓存处">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图处理相关论文">
+<meta property="og:url" content="http://okeyia.github.io/2022/05/15/%E5%9B%BE%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/index.html">
+<meta property="og:site_name" content="okeyia">
+<meta property="og:description" content="图处理的相关论文一 多核系统中处理内存干扰的技术 17 浙大在多核系统中，同时运行的多个应用程序相互竞争访问共享的资源，如互连、高速缓 存和内存等。如果对可用的共享高速缓存容量和内存带宽的管理不恰当的话，不同应用程 序相互干扰，严重影响对方的运行。  例如，在内存处，应用程序原有的行缓冲命中率和阵列级并行度会受到破坏，同时请求在读写队列中等待的时间也会因竞争激烈程度的加剧而 大幅增加；在高速缓存处">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202211132313334.png">
+<meta property="article:published_time" content="2022-05-15T03:43:57.000Z">
+<meta property="article:modified_time" content="2022-11-13T15:16:39.908Z">
+<meta property="article:author" content="okeyia">
+<meta property="article:tag" content="图重排序">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202211132313334.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://okeyia.github.io/2022/05/15/%E5%9B%BE%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '图处理相关论文',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: undefined,
+  isToc: true,
+  postUpdate: '2022-11-13 23:16:39'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="okeyia" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202204171749626.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">26</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> Books</span></a></div><div class="menus_item"><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202211132313334.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">okeyia</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> Books</span></a></div><div class="menus_item"><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">图处理相关论文</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-15T03:43:57.000Z" title="发表于 2022-05-15 11:43:57">2022-05-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-11-13T15:16:39.908Z" title="更新于 2022-11-13 23:16:39">2022-11-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/">学术论文</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="图处理相关论文"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="图处理的相关论文"><a href="#图处理的相关论文" class="headerlink" title="图处理的相关论文"></a>图处理的相关论文</h2><h3 id="一-多核系统中处理内存干扰的技术-17-浙大"><a href="#一-多核系统中处理内存干扰的技术-17-浙大" class="headerlink" title="一 多核系统中处理内存干扰的技术 17 浙大"></a>一 多核系统中处理内存干扰的技术 17 浙大</h3><p>在多核系统中，同时运行的多个应用程序相互竞争访问共享的资源，如互连、高速缓 存和内存等。如果对可用的共享高速缓存容量和内存带宽的管理不恰当的话，不同应用程 序相互干扰，严重影响对方的运行。</p>
+<blockquote>
+<p>例如，在内存处，应用程序原有的行缓冲命中率和阵列级并行度会受到破坏，同时请求在读写队列中等待的时间也会因竞争激烈程度的加剧而 大幅增加；在高速缓存处，不同应用程序可能相互驱逐对方在高速缓存中的块，导致原有 命中率的破坏。</p>
+</blockquote>
+<p>请求在内存处的时延主要包含在队列中的等待时间和在DRAM中执行时间，这两 个部分受内存调度算法的影响特别大。</p>
+<h4 id="创新-基于动态多层次优-先级的内存访问调度算法-DMPS"><a href="#创新-基于动态多层次优-先级的内存访问调度算法-DMPS" class="headerlink" title="创新: 基于动态多层次优 先级的内存访问调度算法 DMPS"></a>创新: 基于动态多层次优 先级的内存访问调度算法 DMPS</h4><p>识别应用程序的内存访问调度算法一般 由三部分组成：</p>
+<ol>
+<li>检测应用程序的内存访问特征；</li>
+<li>基于内存访问特征来将应用程序分 类，以至于易受干扰的应用程序拥有更高的优先级；</li>
+<li>选择优先级最高的就绪命令来执 行。</li>
+</ol>
+<h4 id="DRAM-访问过程"><a href="#DRAM-访问过程" class="headerlink" title="DRAM 访问过程"></a>DRAM 访问过程</h4><p>行缓冲是阵列中感应放大器单元的集合，是DRAM和内存控制器交互的接口。一般来说，行缓冲的大小为 <code>2-16KB</code>。</p>
+<p>在行缓冲的行没有被关掉之前，行缓冲类似于高速缓存， 命中的话可减小访问延迟。到DRAM的访问可分为三步：</p>
+<ol>
+<li>激活命令，在目标阵列中打 开目标行，将其内容转移到行缓冲中</li>
+<li>读写命令，在行缓冲中访问目标列；</li>
+<li>预充电 命令，将行缓冲中的内容写回阵列的数组，关闭行缓冲的行。</li>
+</ol>
+<img src="图处理相关论文/image-20220727095026744.png" alt="image-20220727095026744"/>
+
+<h4 id="页管理策略"><a href="#页管理策略" class="headerlink" title="页管理策略"></a>页管理策略</h4><p>页管理策略管理行缓冲中感应放大器的操作，基本的策略有两种：开页策略和关页策 略</p>
+<p>在开页策略中，<strong>行缓冲只在没 有到打开行的访问且有到其他行的访问时才关闭。</strong>开页策略的重要假设是一旦某一行数 据移到行缓冲中，那么在不久的将来该行的其他列会被访问，即偏爱到同一行的访问，适 合于空间局部性好的应用程序。访问类型主要是行命中和行冲突，对于行命中率高的程 序，开页策略能大幅提高性能。</p>
+<p>在关页策略中，行缓冲在每个访问结束后都会关闭，访问 类型只有行关闭。关页策略适合到不同行的随机访问，同时每个访问的时延一样，有利于 带宽分配和实时控制</p>
+<h4 id="地址映射机制"><a href="#地址映射机制" class="headerlink" title="地址映射机制"></a>地址映射机制</h4><p>地址映射机制负责将系统的内存地址空间映射到DRAM的逻辑结构中，具体来说，地 址映射机制将访问的物理地址转换成通道、排、阵列、行、列等值，具体化数据的放置位 置，对于性能有巨大的影响。当某块放置在某阵列中，下一块可以放置在同一行中、或者 同一阵列的下一行中、或者同一排的下一阵列中、或者同一通道的下一排中、又或者下一 通道中，所以地址映射机制决定了内存系统中可利用的并行度。</p>
+<p>常见的地址映射机制有两 种：块交叉(Cacheline Interleaving)和行交叉(Row Interleaving)，如图2．3所示。行交叉将 连续的块放置在同一行中，试图最大化行缓冲命中率，适用于开页策略；而块交叉将连续 的块分散到不同的通道、排和阵列中，从而最大化内存访问并行度，适用于关页策略。最 小化开页(Minimalist Open Page) 则在两者之间做了权衡，通过少量的行命中实现开页 的增益，同时提高并行度来防止访问饥饿的现象和保证公平性。</p>
+<img src="/2022/05/15/%E5%9B%BE%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/image-20220727103932041.png" class="" title="image-20220727103932041">
+
+<h3 id="二-基于依赖感知的动态有向图处理加速器-20-华科"><a href="#二-基于依赖感知的动态有向图处理加速器-20-华科" class="headerlink" title="二 基于依赖感知的动态有向图处理加速器 20 华科"></a>二 基于依赖感知的动态有向图处理加速器 20 华科</h3><p>图算法通常需要对整个图进行反复迭代处理，不断地更新图顶点状态值，最终使 得所有图顶点状态值都不再发生改变，才停止迭代处理过程。因此，现有动态图处理 系统通常采用图迭代模型对最新图镜像执行增量计算。</p>
+<p>目前的图迭代模型通常包括 批量同步迭代方法（Bulk Synchronous Parallel，BSP）模型和异步迭代模型。</p>
+<h4 id="1-同步迭代模型"><a href="#1-同步迭代模型" class="headerlink" title="1 同步迭代模型"></a>1 同步迭代模型</h4><p>如图 1.3 所示，同步 BSP 迭代模型使用同步屏障机制将整个执行流程划分为数 个迭代周期。在每轮迭代中，基本并行处理单元被分配给各线程并行处理，通过对图 顶点及其相连的边执行运算以获得图顶点状态值（即，算法结果）。然而，由于同步 屏障的限制，各个图顶点都只能使用其前序图顶点在前一轮迭代中的旧状态值来计 算各自的新状态值，所有图顶点都完成各自的计算才能开始新的一轮迭代。迭代周期 交错进行，直到达到收敛状态。当 图处理系统并行处理图数据时，图数据被划分为并 行块并且分配给不同的处理单元。不同并行块之间通过共享内存或者消息通信机制 进行数据交换。</p>
+<p>近年来，软件图处理系统和图加速器提出许多图划分方法，运行时负 载均衡策略和访存优化策略以提高每一轮迭代中图处理系统的吞吐率，并且已经达 到很好的效果。然而，受限于同步 BSP 迭代模型，图顶点的状态值在每轮迭代中只 能到达其直接后代图顶点，造成图顶点状态值的缓慢传播。因此，现有的同步 BSP 迭代模型不能有效支持动态图增量计算对低延迟和实时性的要求。</p>
+<img src="/2022/05/15/%E5%9B%BE%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/image-20220801201253986.png" class="" title="image-20220801201253986">
+
+<h4 id="2-异步迭代模型"><a href="#2-异步迭代模型" class="headerlink" title="2 异步迭代模型"></a>2 异步迭代模型</h4><p>不同于同步 BSP 迭代模型，如图 1.4 所示，异步迭代模型消除了同步屏障，当 前迭代计算得到的结果可以立即用于同一迭代中其它图顶点的状态值更新。因此，在 采用异步迭代模型的情况下，动态图中的图顶点的状态值传递速度通常快于同步 BSP 迭代模型，能够加快迭代收敛速度。</p>
+<img src="/2022/05/15/%E5%9B%BE%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/image-20220801201340527.png" class="" title="image-20220801201340527">
+
+<p>然而在异步迭代中，同时处理相邻图顶点会导致共享内存的读写冲突。为保证 异步迭代的顺序一致性，一些工作[20]对共享数据加锁以避免相邻图顶点的同时处 理。这导致大量锁开销，严重影响了大度图顶点的执行效率，对异步迭代处理性能 产生影响。为了减少原子开销，一些子图中心的异步迭代方法针对系统资源数 量，将有向图划分为图数据块并且分配图数据块给各个并行处理单元。不同图数据 块被并行地处理，通过消息通信机制同步不同图数据块之间的图顶点状态值。在各 个数据块内部，图顶点被串行地，异步地执行以快速传递图顶点状态值。</p>
+<h4 id="3-设计动机"><a href="#3-设计动机" class="headerlink" title="3 设计动机"></a>3 设计动机</h4><blockquote>
+<p>现有的同步 BSP 迭代模型和异步迭代模型能够提升有向图算法的并行度， 广泛应用于多种图处理系统和图加速器中。然而，由于动态有向图增量计算对实时性 要求极高，现有的迭代模型仍然面临着收敛速度缓慢和冗余数据计算和访问等问题， 无法满足用户对动态有向图处理的实时性需求。</p>
+</blockquote>
+<p>在动态有向图增量计算中，受到动态图变化影响的图顶点会沿着有向路径不断 地传递各自的状态值，因此，动态有向图处理的实时性直接受到图顶点的状态值传递 速度的影响。对于迭代有向图算法，每个图顶点都需要读取其前序图顶点的状态值以 重复更新自身的最新状态值，直到迭代收敛为止。但是，当在现有平台上并行执行图 算法时，大多数图顶点和它的前序图顶点被多个并行处理单元同时处理，在每轮迭代 中根据其前序图顶点的过时状态值更新以更新自身的状态值。结果，当使用现有的同 步/异步迭代模型时，活跃图顶点的最新状态值只能够缓慢地沿着有向路径传播到其 他的图顶点，并且根据其它图顶点的陈旧状态值来重复进行计算以更新自身。这不仅 浪费了大量时间用于处理冗余图顶点，还需要高额访存开销以反复加载这些图数据。</p>
+<h5 id="3-1-同步BSP迭代过程"><a href="#3-1-同步BSP迭代过程" class="headerlink" title="3.1 同步BSP迭代过程"></a>3.1 同步BSP迭代过程</h5><p>如图 2.1 所示，动态图处理系统采用同步 BSP 迭代模型执行增量计算。在初始 状态时，动态有向图中所有的图顶点都达到收敛状态，并且相应的计算结果被维护。 当动态有向图结构发生变化时，例如，新增加了指向𝑣&amp;、𝑣’和𝑣(的边，需要重新进行 增量计算以获得最新图镜像的计算结果。图处理系统将激活图顶点，并且按照同步 BSP 迭代方式处理这些图顶点。在第一轮同步迭代中，𝑣&amp;的状态值首先被传递给其 后代图顶点𝑣’。然而，由于同步屏障，活跃图顶点的新状态值不能够立即被同一轮同 步迭代中的其它图顶点使用，因此，𝑣’不能够立即使用𝑣&amp;的状态值，也无法将𝑣&amp;的状态值立即传递给其后代图顶点𝑣(。当新的一轮迭代开始后，𝑣’才将自己接收到的𝑣&amp;传 递来的状态值后得到的结果传递给𝑣(。按照这种方式，在图数据块 P2 中的图顶点需 要至少三轮同步迭代才能将状态值传递给其它图数据块，造成了大量的冗余图数据 计算和访问，导致图顶点状态值缓慢地在有向图中传播。</p>
+<img src="/2022/05/15/%E5%9B%BE%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/image-20220801204827566.png" class="" title="image-20220801204827566">
+
+<h5 id="3-2-异步迭代模型"><a href="#3-2-异步迭代模型" class="headerlink" title="3.2 异步迭代模型"></a>3.2 异步迭代模型</h5><blockquote>
+<p>由于传统的 round-robin 异步迭代模型[21]通常按照图顶点索引次序依次异步串行地处理活跃图顶 点，这忽略了有向图结构本身的更新依赖关系，导致低拓扑顺序的图顶点比高拓扑顺 序的图顶点先被处理。已经处理过的图顶点的状态值只能在下一轮异步迭代中才能 再次被处理，因此，在传统的异步迭代模型下，图顶点状态值仍然缓慢地在有向图中 传播，造成冗余图顶点更新。</p>
+</blockquote>
+<p>如图 2.2 所示，当动态图处理系统采用 round-robin 异步迭代模型执行增量计算 时，在其中一轮异步迭代过程中，一条已经被动态图改变量激活的有向路径（即， 𝑣&amp; → 𝑣’ → 𝑣(）上的图顶点可能被分配任意的图顶点索引次序，当图数据块 P2 被调 度处理时，其中的图顶点被按照图顶点索引次序依次异步串行地更新图顶点状态值。 然而，在每一轮异步迭代中，图顶点按照𝑣(，𝑣’，𝑣&amp;的顺序依次向后代图顶点传递各 自的图顶点状态值。由于已经处理过的图顶点的状态值只能在下一轮异步迭代中才 能再次被更新，因此在本轮异步迭代中，尽管图顶点可以立即使用并传递其前序图顶 点的状态值，但是其后代图顶点只能在下一轮迭代才能被重新更新。由于有向路径 (𝑣&amp; → 𝑣’ → 𝑣( → 𝑣))中包含 3 条边，因此至少需要进行三轮异步迭代（包含线程间同 步），图数据块 P2 才能将图顶点状态值完全传递给其它图数据块。因此，无论是同 步迭代模型，还是传统异步迭代模型，都 无法有效感知动态有向图的更新依赖关系，无法利用拓扑结构来加速动态有向图增量计算中的图顶点状态值传递。</p>
+<img src="/2022/05/15/%E5%9B%BE%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/image-20220801204945409.png" class="" title="image-20220801204945409">
+
+<p>设计思路:</p>
+<h3 id="三-Low-Latency-Graph-Streaming-using-Compressed-Purely-Functional-Trees∗"><a href="#三-Low-Latency-Graph-Streaming-using-Compressed-Purely-Functional-Trees∗" class="headerlink" title="三 Low-Latency Graph Streaming using Compressed Purely-Functional Trees∗"></a>三 Low-Latency Graph Streaming using Compressed Purely-Functional Trees∗</h3><blockquote>
+<p>发表在2019年的 <code>PLDI</code></p>
+<p>Aspen extends the interface proposed by Ligra [70] with operations for updating the graph. As a result, all of the algorithms implemented using Ligra, including graph traversal algorithms, local graph algorithms [72], algorithms using bucketing [24], and others [25], can be run using Aspen with minor modifications. We have made Aspen publicly-available at <a target="_blank" rel="noopener" href="https://github.com/ldhulipala/aspen">https://github.com/ldhulipala/aspen</a>.</p>
+</blockquote>
+<p>Compared to state-of-the-art graph-streaming frameworks, Aspen provides significant improvements both in memory usage (8.5-11.4x more memory-efficient than <strong>Stinger</strong> [29] and 1.9-3.3x more memory-efficient than <strong>LLAMA</strong> [47]), and algorithm performance (1.8-10.2x faster than Stinger and 2.8-15.1x faster than LLAMA).</p>
+<p>Aspen is also comparable to the fastest static graph processing frameworks, including <strong>GAP</strong> [6] (Aspen is 1.4x faster on average), <strong>Ligra+</strong> [71] (Aspen is 1.4x slower on average), and Galois [56] (Aspen is 12x faster on average). Compared to Ligra+, which is one of the fastest static compressed graph representations, Aspen only requires between 1.8-2.3x more space.</p>
+<h4 id="一-motivation"><a href="#一-motivation" class="headerlink" title="一 motivation"></a>一 motivation</h4><h5 id="1-1-不能并行更新和查询"><a href="#1-1-不能并行更新和查询" class="headerlink" title="1.1 不能并行更新和查询"></a>1.1 不能并行更新和查询</h5><p>现有的 graph-streaming frameworks, such as STINGER,  基于在内存中维持单个可变的副本, Unfortunately, these frameworks require either blocking queries or updates so that they are not concurrent, or giving up serializability。</p>
+<h5 id="1-2-高延迟或者浪费空间"><a href="#1-2-高延迟或者浪费空间" class="headerlink" title="1.2 高延迟或者浪费空间"></a>1.2 高延迟或者浪费空间</h5><p>已有的基于快照的系统，are either very space-inefficient, or suffer from high latency on updates。</p>
+<h5 id="1-3-结论"><a href="#1-3-结论" class="headerlink" title="1.3 结论"></a>1.3 结论</h5><p>一个重要的问题是，我们是否可以设计支持轻巧快照的数据结构，该快照可用于处理查询和更新，同时确保数据结构对并行性安全，并实现良好的渐近性和经验性能。</p>
+<h4 id="二-实验部分"><a href="#二-实验部分" class="headerlink" title="二 实验部分"></a>二 实验部分</h4><blockquote>
+<p>The Aspen interface is an extension of Ligra’s interface. It includes the full Ligra interface-vertexSubsets, edgeMap, and various other functionality on a fixed graph. </p>
+<p>On top of Ligra, we add a set of functions for updating the graph - in particular, for inserting or deleting sets of edges or sets of vertices. We also add a flat-snapshot function.  所有处理和更新的函数都是工作在固定大小的、不变的图镜像版本上面.</p>
+</blockquote>
+<p>很明显是 单写者多读者 的概念。</p>
+<p>实现了五个算法， 三个全局算法：bfs，bc，mis。两个local algorithm：2-hop，local-cluster。在这些实验中，我们通过从输入图中随机采样200万边来生成更新流以用作更新. 90% 作为add（采样后从图中删除）, 10% 作为del 的边, 然后随机组成更新流。 </p>
+<p>当数据集较小无法满足200万的条件后， 使用 <code>rMAT</code> 生成器 执行更新。</p>
+<h4 id="三-相关工作"><a href="#三-相关工作" class="headerlink" title="三 相关工作"></a>三 相关工作</h4><p>现有的动态图形流框架可以根据摄入更新的方法分为两类: </p>
+<ol>
+<li>更新等待查询结束, 查询等待更新结束。这样的话就不担心查询的一致性。如hornet，在带有3,840个内核的 <code>GPU</code> 上每秒高达8亿个边缘的吞吐量（大约是我们使用72个CPU核心的吞吐量的两倍）</li>
+<li>使查询和更新可以通过隔离查询来在快照上运行并定期更新会生成新快照。如：GraphOne, 是一个与我们的工作同时开发的系统，可以在图形的最新版本上运行查询，同时通过使用邻接列表和边缘列表的组合处理更新。graphOne在Twitter图上，使用28个内核的Twitter图上的更新速率为每秒6640万个边缘； Aspen能够使用28个内核在较大的Twitter图上每秒摄入9450万个边缘。但是，Graphone还将更新数据备份到磁盘以获得耐用性。</li>
+</ol>
+<h3 id="四-RisGraph-A-Real-Time-Streaming-System-for-Evolving-Graphs-to-Support-Sub-millisecond-Per-update-Analysis-at-Millions-Ops-s"><a href="#四-RisGraph-A-Real-Time-Streaming-System-for-Evolving-Graphs-to-Support-Sub-millisecond-Per-update-Analysis-at-Millions-Ops-s" class="headerlink" title="四 RisGraph: A Real-Time Streaming System for Evolving Graphs to Support Sub-millisecond Per-update Analysis at Millions Ops/s"></a>四 RisGraph: A Real-Time Streaming System for Evolving Graphs to Support Sub-millisecond Per-update Analysis at Millions Ops/s</h3><blockquote>
+<p>单调算法（例如可达性和最短路径）在实时分析中广泛使用，以获得 both static and temporal insights(见解)，并且可以通过增量计算加速。现有的 streaming system 采用增量计算模型，并实现低潜伏期或高吞吐量，但不能两者兼而有之。</p>
+<p>RisGraph 通过局部数据访问和更新的并行性解决挑战.</p>
+<p>单调算法在不断 evolving graph 中经常使用,  其中包括可及性，广度搜索，最短路径，连接的组件（和最小/最大标签传播(Connected Components, and Min/Max Label Propagation)。它需要扫描大量数据甚至整个图表，以重新计算不断发展的图的每个快照上的单调算法。增量计算的想法可以通过利用先前的结果来减少冗余计算来加速单调算法。</p>
+</blockquote>
+<p>RisGraph 单边更新， 与批处理相比，Per-Update分析对延迟友好，产生最新结果，并提供最准确，最详细的信息。它只留下一个开放的问题：如何在per-update analysis 中提供高吞吐量。</p>
+<h4 id="一-motivation-1"><a href="#一-motivation-1" class="headerlink" title="一 motivation"></a>一 motivation</h4><p>已有的解决方案：<code>Kickstarter</code> 和 <code>Differential Dataflow</code> 是最先进的代表, <code>Kickstarter</code> 提出了单调算法的增量图计算模型，而<code>Differential Dataflow</code>则呈现了无图形意识的广义增量模型。</p>
+<p><strong>不足:</strong>  如果<code>Kickstarter</code> 和 <code>Differential Dataflow</code> 每次更改图形时都（Per Update Analysis）进行分析，则每秒只能处理大约1000个更新。they rely on batching to trade latency for higher throughput(以延迟换吞吐量), benefiting from larger concurrency and lower overheads.  此外，它们提供了批处理模式以进一步优化吞吐量，从而降低了分析的频率，并仅对每批批次产生一个汇总的最终结果。</p>
+<p><strong>不足举例:</strong>  我们以2010年Twitter-2010 [48]的范围进行广度优先搜索（<code>BFS</code>）。为了满足20 ms延迟需求（实时分析[65]），这些系统的吞吐量仅为1K OPS/s。为了提供 100K OPS/s的吞吐量，它们需要批量超过 <code>20k</code> 的更新，并且平均处理时间增长到150毫秒以上。因此，现有的流图系统不能同时通过批处理满足延迟和吞吐量要求。尽管如此，批处理模式还是整个更新，跳过了中间状态，这些状态在某些情况下可能有用，例如财务欺诈检测和交易综合性。</p>
+<p><strong>单边更新的挑战：</strong> </p>
+<ol>
+<li>无法像 batch 更新那样，均摊开销</li>
+<li>高吞吐量和低延迟 的目标要求系统有效地进行两种工作负载。修改图表时，它需要将每个更新应用于数据结构，并提供更新的图表，以便在短时间内进行分析。为了启用每个更新的实时分析，系统需要一个图形感知的设计，以利用单个更新的局部性，而不是利用整个图形扫描的典型技术。此外，它需要一种新的机制才能使平行性进行PerDate Processing，这对于在不批处理的情况下实现高吞吐量也很重要。</li>
+</ol>
+<p><strong>guiding idea：</strong></p>
+<ol>
+<li>局部数据访问的想法来自以下观察结果：图形流系统的常用图形感知技术仍然需要不必要的整个图形扫描[43，54，68，77]。如果我们仅通过访问受更新影响的必要顶点来避免这些扫描，我们将获得更好的性能，因此我们建议使用称为索引的邻接列表和稀疏阵列的数据结构来启用本地化访问。</li>
+<li>我们通过并行处理更新（跨越并行性），同时维护应用程序的每个语义，进一步改善了吞吐量。我们提出了一种算法，以识别可以并行执行的更新，并一个一个更新以保持低延迟，以及原子能，隔离和Per Update分析的正确性。</li>
+</ol>
+<h4 id="二-实验结果"><a href="#二-实验结果" class="headerlink" title="二 实验结果"></a>二 实验结果</h4><p>四种算法： BFS、SSSP、SSWP、WCC</p>
+<p>我们首先加载90％的边缘，选择10％的边缘作为从加载边缘的删除更新，然后将其余（10％）边缘视为插入更新。删除和更新占比1:1。</p>
+<p>与<code>Kickstarter</code>相比，<code>Risgraph</code>的性能改进主要是我们本地化数据访问的信用（第3节）。 <code>Risgraph</code>的表现优于差异数据流，这主要是由于专门的图形感知引擎和增量模型。例如，与<code>Risgraph</code>相比，在Twitter-2010上重新计算<code>BFS</code>的处理时间为78倍。</p>
+<h4 id="三-相关工作-1"><a href="#三-相关工作-1" class="headerlink" title="三 相关工作"></a>三 相关工作</h4><ol>
+<li><code>Kickstarter</code> 通过追踪依赖关系和修剪近似值，为单调算法提供了正确的增量计算。 </li>
+<li><code>Grapu</code>  by components-based classification and in-buffer <code>precomputation</code> 加速批处理单调算法。</li>
+<li><code>Graphin</code> 结合了一个I-GAS模型，该模型会逐步处理固定尺寸的更新。</li>
+<li><code>GraphBolt</code> 提出了一个通用的增量模型来 处理 non-monotonic algorithms like Belief Propagation,，但比单调算法的 <code>kickstarter</code> 涉及更多的开销。</li>
+</ol>
+<h3 id="五-GraphPulse-An-Event-Driven-Hardware-Accelerator-for-Asynchronous-Graph-Processing"><a href="#五-GraphPulse-An-Event-Driven-Hardware-Accelerator-for-Asynchronous-Graph-Processing" class="headerlink" title="五 GraphPulse: An Event-Driven Hardware Accelerator for Asynchronous Graph Processing"></a>五 <code>GraphPulse</code>: An Event-Driven Hardware Accelerator for Asynchronous Graph Processing</h3><p>​                                                                                                                                                                                                ——2020 MICRO</p>
+<blockquote>
+<p>大规模的图处理带来了一些问题:</p>
+<ol>
+<li>memory-intensive processing stresses the memory system, 和计算型系统相比, 内存占用更大, 频率更高. 大型内存占用还会导致内存带宽瓶颈并加剧长期访问延迟.</li>
+<li>其次，由于顶点的并发更新，大多数计算模型中访问共享图状态的同步开销很高.</li>
+<li>跟踪活动顶点或者边缘的开销很大, 这种跟踪是必不可少的，因为计算是不规则的，而在每次迭代中都有不同的顶点和边缘的子集。</li>
+</ol>
+<p>综上, 我们认为，现代处理体系结构不太适合按大规模进行图形处理应用程序</p>
+</blockquote>
+<p><code>GraphPulse</code> 围绕事件驱动计算的想法, 它表示计算为event， when the value of a  vertex changes to update vertices on all outgoing edges(当顶点的值更改为更新所有传出边上的顶点时)通常生成.</p>
+<h3 id="六-JetStream-Graph-Analytics-on-Streaming-Data-with-Event-Driven-Hardware-Accelerator"><a href="#六-JetStream-Graph-Analytics-on-Streaming-Data-with-Event-Driven-Hardware-Accelerator" class="headerlink" title="六 JetStream: Graph Analytics on Streaming Data with Event-Driven Hardware Accelerator"></a>六 <code>JetStream</code>: Graph Analytics on Streaming Data with Event-Driven Hardware Accelerator</h3><blockquote>
+<p><code>Jetstream</code> 扩展了最近提出的基于事件的加速器，用于图形工作负载，以支持流更新。它通过事件驱动的计算模型来处理累积和单调图算法，该模型限制了访问图形顶点的较小子集，有效地重用以前的查询结果以消除冗余，并优化了增强内存存储器带宽利用率的内存访问模式。</p>
+</blockquote>
+<p><code>Jetstream在Kickstarter和GraphBolt</code> 软件框架上达到了约18倍的速度，这些系统在较小的批次尺寸下具有明显较高的加速度。</p>
+<p>更新的 batch 大小只占原始图大小的很小一部分, 如果重头计算的话势必会带来一些不必要的冗余。逐步支持删除的问题更具挑战性，只有Kickstarter [45]，GraphBolt [26]和DZIG [25]支持它。</p>
+<p>支持的算法：supports all algorithms compatible with delta-accumulative computation。</p>
+<p>相对于增加，删除操作更加麻烦，我们在两个阶段中支持删除：</p>
+<ol>
+<li>将图形的上一个版本的逐步转换为更新图的可恢复状态</li>
+<li>bringing the results to convergence again.</li>
+</ol>
+<h3 id="七-图处理相关论文"><a href="#七-图处理相关论文" class="headerlink" title="七 图处理相关论文"></a>七 图处理相关论文</h3><h4 id="三-how怎么解决这个问题"><a href="#三-how怎么解决这个问题" class="headerlink" title="三 how怎么解决这个问题"></a>三 how怎么解决这个问题</h4><p>GRASP augments existing cache policies to maximize reuse of hot vertices by protecting them against cache thrashing, while maintaining sufficient flexibility to capture the reuse of other vertices as needed.</p>
+<ul>
+<li><h4 id="论文中提出的图重排序方法的作用对象和机制以及与其他重排序方法的区别"><a href="#论文中提出的图重排序方法的作用对象和机制以及与其他重排序方法的区别" class="headerlink" title="论文中提出的图重排序方法的作用对象和机制以及与其他重排序方法的区别"></a>论文中提出的图重排序方法的作用对象和机制以及与其他重排序方法的区别</h4></li>
+</ul>
+<blockquote>
+<p>这并未提出新的重排序方法, 而是使用已有的重排序方法,  引用下面两篇论文.</p>
+<ul>
+<li> [A Closer Look at Lightweight Graph Reordering](# A Closer Look at Lightweight Graph Reordering)</li>
+<li>[Making caches work for graph analytics](# Making caches work for graph analytics)</li>
+</ul>
+</blockquote>
+<img src="/2022/05/15/%E5%9B%BE%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/image-20220511164905637.png" class="" title="image-20220511164905637">
+
+<center>(a) Software applies vertex reordering, which segregates hot vertices at the beginning of the array. 
+(b) GRASP interface exposes an ABR pair per Property Array to be configured with the bounds of the array. (c) GRASP identifies regions exhibiting different reuse based on an LLC size. </center>
+
+<ul>
+<li>Page5  论文中是如何识别热数据顶点，如何pinpoint(准确找到)热数据区域以及如何对访问进行归类；</li>
+</ul>
+<blockquote>
+<ul>
+<li><p>Conveniently, the hottest vertices are located at the beginning of the Property Array in a contiguous region thanks to the application of skew-aware reordering as seen in Fig. 3(a).  <strong>也就是说, 热顶点是通过排序得到的</strong>。</p>
+</li>
+<li><p>会在属性数组起始地址抓两个LLC-sized 的子区域， 一个 HIgh Reuse Region, 另一个Moderate Reuse Region.</p>
+</li>
+<li><p>GRASP determines this by comparing the address with the bounds of the High Reuse Region of each Property Array. </p>
+<img src="/2022/05/15/%E5%9B%BE%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/image-20220511165057988.png" class="" title="image-20220511165057988">
+
+<p>GRASP encodes the classification result (High-Reuse, Moderate-Reuse, Low-Reuse or Default) as a 2-bit Reuse Hint, and forwards it to the LLC along with each cache request, as shown in Fig. 4, to guide specialized insertion and hit-promotion policies as described next.</p>
+</li>
+</ul>
+</blockquote>
+<h4 id="四-what-解决之后得到什么结论"><a href="#四-what-解决之后得到什么结论" class="headerlink" title="四 what 解决之后得到什么结论"></a>四 what 解决之后得到什么结论</h4><h5 id="4-1-Graph-process-framework"><a href="#4-1-Graph-process-framework" class="headerlink" title="4.1 Graph process framework"></a>4.1 Graph process framework</h5><blockquote>
+<p>ligra, a widely used graph processing framework that supports both pull- and push-based computations, including switching from pull to push (and vice versa) at the start of every iteration. </p>
+</blockquote>
+<h5 id="4-2-Software-evaluation"><a href="#4-2-Software-evaluation" class="headerlink" title="4.2  Software evaluation"></a>4.2  Software evaluation</h5><p>论文中涉及的重排序技术</p>
+<blockquote>
+<p><strong>Sort</strong>  reorders vertices in the memory space by sorting them in the descending order of their degree.</p>
+</blockquote>
+<blockquote>
+<p><strong>HubSort</strong>  segregates(隔离) hot vertices in a contiguous region by assigning them a continuous range of vertex IDs in their descending order of degree. In doing so, Hub Sorting essentially sorts all hot vertices, while largely preserving structure for the cold vertices.</p>
+</blockquote>
+<blockquote>
+<p><strong>DBG</strong> , unlike Sort and HubSort, does not rely on sorting to segregate hot vertices. Instead, DBG coarsely(粗略的) partitions all vertices into a small number of groups based on their degree. Similar to Sort and HubSort, DBG is effective at improving spatial locality; however, unlike the other two techniques, DBG is able to largely preserve the existing graph structure.</p>
+</blockquote>
+<blockquote>
+<p><strong>Gorder</strong> is evaluated as a representative of complex techniques. As Gorder is only available in a single-thread implementation, while reporting the net runtime of Gorder for a given dataset, we optimistically divide the reordering time by 40 (maximum number of threads supported on the server) to provide a fair comparison with skew-aware techniques whose reordering implementation is fully parallelized.</p>
+</blockquote>
+<h3 id="八-A-Closer-Look-at-Lightweight-Graph-Reordering"><a href="#八-A-Closer-Look-at-Lightweight-Graph-Reordering" class="headerlink" title="八 A Closer Look at Lightweight Graph Reordering"></a>八 A Closer Look at Lightweight Graph Reordering</h3><h4 id="二-why"><a href="#二-why" class="headerlink" title="二 why"></a>二 why</h4><p>To address the limitations of existing skew-aware reordering techniques, </p>
+<ul>
+<li> Sort achieves the maximum reduction in the cache footprint of hot vertices. However, in doing so, Sort completely decimates existing graph structure</li>
+<li>Hub Sorting and Hub Clustering both classify vertices as hot or cold based on their degree and preserve the structure for cold vertices. However, in dealing with hot vertices, they resort to inefficient extremes. </li>
+<li>At one extreme, Hub Sorting employs fine-grain reordering that sorts all hot vertices, destroying existing graph structure. At the other extreme, Hub Clustering does not apply any kind of reordering among hot vertices, sacrificing significant opportunity in improving cache efficiency</li>
+</ul>
+<p>we propose Degree-Based Grouping <a target="_blank" rel="noopener" href="https://github.com/faldupriyank/dbg">DBG</a>。</p>
+<h4 id="三-how"><a href="#三-how" class="headerlink" title="三 how"></a>三 how</h4><h5 id="3-1-the-dbg-algorithm"><a href="#3-1-the-dbg-algorithm" class="headerlink" title="3.1 the dbg algorithm"></a>3.1 the dbg algorithm</h5><img src="/2022/05/15/%E5%9B%BE%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/image-20220512161706297.png" class="" title="image-20220512161706297">
+
+<center>  DBG algorithm. Degree can be in-degree or out-degree
+or sum of both.</center>
+
+<h5 id="3-2-the-dbg-example"><a href="#3-2-the-dbg-example" class="headerlink" title="3.2 the dbg example"></a>3.2 the dbg example</h5><p> Vertex degree is shown inside the box while original vertex ID is shown below the box.</p>
+<p>Vertex ordering in memory after DBG. In this example, DBG partitions vertices into three groups with degree ranges [0, 20), [20, 40) and [40, 80). DBG maintains a relative order of vertices within a group. As a result, many vertices are placed nearby the same vertices as before the reordering such as vertex sets (P4, P5, P6), (P0, P1) and (P10, P11).</p>
+<img src="/2022/05/15/%E5%9B%BE%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/image-20220512162204354.png" class="" title="image-20220512162204354">
+
+<center>Vertex ordering in memory after DBG. </center>
+
+<h5 id="3-3-运行作者实验"><a href="#3-3-运行作者实验" class="headerlink" title="3.3 运行作者实验"></a>3.3 运行作者实验</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">1. 编译 这一步注意设置DBG_ROOT, 要不然下面第二部会出现错误</span></span><br><span class="line">export DBG_ROOT=&#x27;/home/server2/dbg&#x27;</span><br><span class="line">cd ~/dbg/apps</span><br><span class="line">make -j </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">2. 下载数据集</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//el --&gt; edge list of the form (src, dst) <span class="keyword">in</span> text file</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//bel --&gt; edge list of the form (src, dst) <span class="keyword">in</span> binary file</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//vgr --&gt; binary csr format with no weight <span class="keyword">for</span> edges</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//cvgr --&gt; binary csr format with no weight <span class="keyword">for</span> edges (no self or redundant edges)</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//csvgr --&gt; binary csr format with no weight <span class="keyword">for</span> edges (no self or redundant edges)</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//         graph is symmetric -- so <span class="keyword">for</span> every edge (u, v) there also exist (v, u)</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//cintgr --&gt; binary csr format with int weight <span class="keyword">for</span> edges (no slef or redundant edges)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">//edges are assumed to take 8 bytes and vertices (and edge weights) are assumed to take 4 bytes <span class="keyword">in</span> binary file</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">//all *gr files contain a header of 24 bytes as follows:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//number of vertices</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//number of edges</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//major number</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//minor number</span></span><br><span class="line"><span class="meta">#</span><span class="bash">//gr files are implemented based on the implementation from Galois.</span></span><br><span class="line"></span><br><span class="line">wget http://snap.stanford.edu/data/web-Google.txt.gz</span><br><span class="line">gunzip web-Google.txt.gz</span><br><span class="line">../graph-convert-utils/clean_edgelist.py web-Google.txt web-Google.el</span><br><span class="line">../graph-convert-utils/convert.sh web-Google</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">3. Run individual application， 运行之前安装numactl，否则会出现错误。 安装命令 sudo apt install numactl</span></span><br><span class="line">make REORDERING_ALGO=5 DEGREE_USED_FOR_REORDERING=0 DATASET=web-Google run-PageRank</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/15/%E5%9B%BE%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/image-20220513152610369.png" class="" title="image-20220513152610369">
+
+
+
+<h3 id="九-Making-caches-work-for-graph-analytics"><a href="#九-Making-caches-work-for-graph-analytics" class="headerlink" title="九 Making caches work for graph analytics"></a>九 Making caches work for graph analytics</h3><p>Hub sorting was proposed as a variant of Sort that aims to preserve some structure while reducing the cache footprint of hot vertices.</p>
+<h3 id="十-Speedup-Graph-Processing-by-Graph-Ordering"><a href="#十-Speedup-Graph-Processing-by-Graph-Ordering" class="headerlink" title="十 Speedup Graph Processing by Graph Ordering"></a>十 Speedup Graph Processing by Graph Ordering</h3><p>Gorder—— the state-of-the-art structure-aware reordering technique.</p>
+<h3 id="十一-如何直接对属性数组进行冷热数据分离"><a href="#十一-如何直接对属性数组进行冷热数据分离" class="headerlink" title="十一 如何直接对属性数组进行冷热数据分离"></a>十一 如何直接对属性数组进行冷热数据分离</h3><blockquote>
+<p>这里对冷热数据分离是什么意思?  </p>
+<p>是划分出high reuse region、Moderate （适度）Reuse Region， 不常用数据？</p>
+</blockquote>
+<h4 id="1-1-DBG-实验"><a href="#1-1-DBG-实验" class="headerlink" title="1.1 DBG 实验"></a>1.1 DBG 实验</h4><p>在dbg的实验中, 将el格式的图转为了cvgr –&gt; binary csr format with no weight for edges (no self or redundant edges), cintgr –&gt; binary csr format with int weight for edges (no slef or redundant edges)。pagerank算法应该是借助 ligra 使用了 cvgr格式的图。这里的话没有cache，还需要自己配置才能获取到冷热数据，因此还要看以前的grasp这个仓库。</p>
+<h4 id="1-2-grasp实验"><a href="#1-2-grasp实验" class="headerlink" title="1.2 grasp实验"></a>1.2 grasp实验</h4><p>在[Domain-Specialized Cache Management for Graph Analytics ](# 图处理相关论文) 这篇论文中,  通过dbg重排序后，作者直接定义了两个cache大小的区域, 分别获取high、 moderate 区域。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">okeyia</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://okeyia.github.io/2022/05/15/%E5%9B%BE%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/">http://okeyia.github.io/2022/05/15/%E5%9B%BE%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://okeyia.github.io" target="_blank">okeyia</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%9B%BE%E9%87%8D%E6%8E%92%E5%BA%8F/">图重排序</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/07/27/Processor_Counter_Monitor/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202207270024935.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Processor Counter Monitor</div></div></a></div><div class="next-post pull-right"><a href="/2022/05/13/OPenMP%E5%B9%B6%E8%A1%8C%E7%BC%96%E7%A8%8B/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202205130900987.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">OpenMP并行编程</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%A4%84%E7%90%86%E7%9A%84%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87"><span class="toc-text">图处理的相关论文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80-%E5%A4%9A%E6%A0%B8%E7%B3%BB%E7%BB%9F%E4%B8%AD%E5%A4%84%E7%90%86%E5%86%85%E5%AD%98%E5%B9%B2%E6%89%B0%E7%9A%84%E6%8A%80%E6%9C%AF-17-%E6%B5%99%E5%A4%A7"><span class="toc-text">一 多核系统中处理内存干扰的技术 17 浙大</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E6%96%B0-%E5%9F%BA%E4%BA%8E%E5%8A%A8%E6%80%81%E5%A4%9A%E5%B1%82%E6%AC%A1%E4%BC%98-%E5%85%88%E7%BA%A7%E7%9A%84%E5%86%85%E5%AD%98%E8%AE%BF%E9%97%AE%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95-DMPS"><span class="toc-text">创新: 基于动态多层次优 先级的内存访问调度算法 DMPS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DRAM-%E8%AE%BF%E9%97%AE%E8%BF%87%E7%A8%8B"><span class="toc-text">DRAM 访问过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B5%E7%AE%A1%E7%90%86%E7%AD%96%E7%95%A5"><span class="toc-text">页管理策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E6%98%A0%E5%B0%84%E6%9C%BA%E5%88%B6"><span class="toc-text">地址映射机制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C-%E5%9F%BA%E4%BA%8E%E4%BE%9D%E8%B5%96%E6%84%9F%E7%9F%A5%E7%9A%84%E5%8A%A8%E6%80%81%E6%9C%89%E5%90%91%E5%9B%BE%E5%A4%84%E7%90%86%E5%8A%A0%E9%80%9F%E5%99%A8-20-%E5%8D%8E%E7%A7%91"><span class="toc-text">二 基于依赖感知的动态有向图处理加速器 20 华科</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%90%8C%E6%AD%A5%E8%BF%AD%E4%BB%A3%E6%A8%A1%E5%9E%8B"><span class="toc-text">1 同步迭代模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%BC%82%E6%AD%A5%E8%BF%AD%E4%BB%A3%E6%A8%A1%E5%9E%8B"><span class="toc-text">2 异步迭代模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E8%AE%BE%E8%AE%A1%E5%8A%A8%E6%9C%BA"><span class="toc-text">3 设计动机</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-%E5%90%8C%E6%AD%A5BSP%E8%BF%AD%E4%BB%A3%E8%BF%87%E7%A8%8B"><span class="toc-text">3.1 同步BSP迭代过程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-%E5%BC%82%E6%AD%A5%E8%BF%AD%E4%BB%A3%E6%A8%A1%E5%9E%8B"><span class="toc-text">3.2 异步迭代模型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89-Low-Latency-Graph-Streaming-using-Compressed-Purely-Functional-Trees%E2%88%97"><span class="toc-text">三 Low-Latency Graph Streaming using Compressed Purely-Functional Trees∗</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80-motivation"><span class="toc-text">一 motivation</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-%E4%B8%8D%E8%83%BD%E5%B9%B6%E8%A1%8C%E6%9B%B4%E6%96%B0%E5%92%8C%E6%9F%A5%E8%AF%A2"><span class="toc-text">1.1 不能并行更新和查询</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-%E9%AB%98%E5%BB%B6%E8%BF%9F%E6%88%96%E8%80%85%E6%B5%AA%E8%B4%B9%E7%A9%BA%E9%97%B4"><span class="toc-text">1.2 高延迟或者浪费空间</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3-%E7%BB%93%E8%AE%BA"><span class="toc-text">1.3 结论</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C-%E5%AE%9E%E9%AA%8C%E9%83%A8%E5%88%86"><span class="toc-text">二 实验部分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89-%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-text">三 相关工作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B-RisGraph-A-Real-Time-Streaming-System-for-Evolving-Graphs-to-Support-Sub-millisecond-Per-update-Analysis-at-Millions-Ops-s"><span class="toc-text">四 RisGraph: A Real-Time Streaming System for Evolving Graphs to Support Sub-millisecond Per-update Analysis at Millions Ops&#x2F;s</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80-motivation-1"><span class="toc-text">一 motivation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C-%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="toc-text">二 实验结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89-%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C-1"><span class="toc-text">三 相关工作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94-GraphPulse-An-Event-Driven-Hardware-Accelerator-for-Asynchronous-Graph-Processing"><span class="toc-text">五 GraphPulse: An Event-Driven Hardware Accelerator for Asynchronous Graph Processing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD-JetStream-Graph-Analytics-on-Streaming-Data-with-Event-Driven-Hardware-Accelerator"><span class="toc-text">六 JetStream: Graph Analytics on Streaming Data with Event-Driven Hardware Accelerator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%83-%E5%9B%BE%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87"><span class="toc-text">七 图处理相关论文</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89-how%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%E8%BF%99%E4%B8%AA%E9%97%AE%E9%A2%98"><span class="toc-text">三 how怎么解决这个问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BA%E6%96%87%E4%B8%AD%E6%8F%90%E5%87%BA%E7%9A%84%E5%9B%BE%E9%87%8D%E6%8E%92%E5%BA%8F%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%9C%E7%94%A8%E5%AF%B9%E8%B1%A1%E5%92%8C%E6%9C%BA%E5%88%B6%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E9%87%8D%E6%8E%92%E5%BA%8F%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">论文中提出的图重排序方法的作用对象和机制以及与其他重排序方法的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9B-what-%E8%A7%A3%E5%86%B3%E4%B9%8B%E5%90%8E%E5%BE%97%E5%88%B0%E4%BB%80%E4%B9%88%E7%BB%93%E8%AE%BA"><span class="toc-text">四 what 解决之后得到什么结论</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-Graph-process-framework"><span class="toc-text">4.1 Graph process framework</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-2-Software-evaluation"><span class="toc-text">4.2  Software evaluation</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AB-A-Closer-Look-at-Lightweight-Graph-Reordering"><span class="toc-text">八 A Closer Look at Lightweight Graph Reordering</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C-why"><span class="toc-text">二 why</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89-how"><span class="toc-text">三 how</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-the-dbg-algorithm"><span class="toc-text">3.1 the dbg algorithm</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-the-dbg-example"><span class="toc-text">3.2 the dbg example</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-3-%E8%BF%90%E8%A1%8C%E4%BD%9C%E8%80%85%E5%AE%9E%E9%AA%8C"><span class="toc-text">3.3 运行作者实验</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%9D-Making-caches-work-for-graph-analytics"><span class="toc-text">九 Making caches work for graph analytics</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%81-Speedup-Graph-Processing-by-Graph-Ordering"><span class="toc-text">十 Speedup Graph Processing by Graph Ordering</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%81%E4%B8%80-%E5%A6%82%E4%BD%95%E7%9B%B4%E6%8E%A5%E5%AF%B9%E5%B1%9E%E6%80%A7%E6%95%B0%E7%BB%84%E8%BF%9B%E8%A1%8C%E5%86%B7%E7%83%AD%E6%95%B0%E6%8D%AE%E5%88%86%E7%A6%BB"><span class="toc-text">十一 如何直接对属性数组进行冷热数据分离</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-DBG-%E5%AE%9E%E9%AA%8C"><span class="toc-text">1.1 DBG 实验</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-grasp%E5%AE%9E%E9%AA%8C"><span class="toc-text">1.2 grasp实验</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By okeyia</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
