@@ -1,0 +1,303 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>四 性能检测和优化 | okeyia</title><meta name="keywords" content="服务器编程"><meta name="author" content="okeyia"><meta name="copyright" content="okeyia"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="第四篇 高性能服务器优化与监测第十六章 服务器调制、调试和测试我们要从系统的角度来优化、改进服务器，这包括3个方面的 内容：系统调制、服务器调试和压力测试。 16.1 最大文件描述符数文件描述符是服务器程序的宝贵资源，几乎所有的系统调用都是和文件描述符打交道。系统分配给应用程序的文件描述符数量是有限制的，所以我们必须总是关闭那些已经不再使用的文件描述符，以释放它们占用的资源。  比如作为守护进程运">
+<meta property="og:type" content="article">
+<meta property="og:title" content="四 性能检测和优化">
+<meta property="og:url" content="http://okeyia.github.io/2023/03/10/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BC%98%E5%8C%96%E4%B8%8E%E6%A3%80%E6%B5%8B/index.html">
+<meta property="og:site_name" content="okeyia">
+<meta property="og:description" content="第四篇 高性能服务器优化与监测第十六章 服务器调制、调试和测试我们要从系统的角度来优化、改进服务器，这包括3个方面的 内容：系统调制、服务器调试和压力测试。 16.1 最大文件描述符数文件描述符是服务器程序的宝贵资源，几乎所有的系统调用都是和文件描述符打交道。系统分配给应用程序的文件描述符数量是有限制的，所以我们必须总是关闭那些已经不再使用的文件描述符，以释放它们占用的资源。  比如作为守护进程运">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202303101636855.png">
+<meta property="article:published_time" content="2023-03-10T03:05:24.000Z">
+<meta property="article:modified_time" content="2023-03-11T12:53:40.695Z">
+<meta property="article:author" content="okeyia">
+<meta property="article:tag" content="服务器编程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202303101636855.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://okeyia.github.io/2023/03/10/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BC%98%E5%8C%96%E4%B8%8E%E6%A3%80%E6%B5%8B/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '四 性能检测和优化',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: undefined,
+  isToc: true,
+  postUpdate: '2023-03-11 20:53:40'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="okeyia" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202204171749626.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">21</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> Books</span></a></div><div class="menus_item"><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202303101636855.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">okeyia</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> Books</span></a></div><div class="menus_item"><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">四 性能检测和优化</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-10T03:05:24.000Z" title="发表于 2023-03-10 11:05:24">2023-03-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-11T12:53:40.695Z" title="更新于 2023-03-11 20:53:40">2023-03-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="四 性能检测和优化"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="第四篇-高性能服务器优化与监测"><a href="#第四篇-高性能服务器优化与监测" class="headerlink" title="第四篇 高性能服务器优化与监测"></a>第四篇 高性能服务器优化与监测</h2><h3 id="第十六章-服务器调制、调试和测试"><a href="#第十六章-服务器调制、调试和测试" class="headerlink" title="第十六章 服务器调制、调试和测试"></a>第十六章 服务器调制、调试和测试</h3><p>我们要从系统的角度来优化、改进服务器，这包括3个方面的 内容：系统调制、服务器调试和压力测试。</p>
+<h4 id="16-1-最大文件描述符数"><a href="#16-1-最大文件描述符数" class="headerlink" title="16.1 最大文件描述符数"></a>16.1 最大文件描述符数</h4><p>文件描述符是服务器程序的宝贵资源，几乎所有的系统调用都是和文件描述符打交道。系统分配给应用程序的文件描述符数量是有限制的，所以我们必须总是关闭那些已经不再使用的文件描述符，以释放它们占用的资源。</p>
+<blockquote>
+<p>比如作为守护进程运行的服务器程序就应该总是 关闭标准输入、标准输出和标准错误这3个文件描述符。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*关闭标准输入设备、标准输出设备和标准错误输出设备*/</span></span><br><span class="line">close(STDIN_FILENO);</span><br><span class="line">close(STDOUT_FILENO);</span><br><span class="line">close(STDERR_FILENO);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>Linux对应用程序能打开的最大文件描述符数量有两个层次的限 制：用户级限制和系统级限制。</p>
+<ul>
+<li>用户级限制是指目标用户运行的所有进程总共能打开的文件描述符数；</li>
+<li>系统级的限制是指所有用户总共能打开的文件描述符数。</li>
+</ul>
+<p>为永久修改<strong>用户级文件</strong>描述符数限制，可以在<code>/etc/security/limits.conf</code>文件中加入如 下两项：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*hard nofile max-file-number   	// 第一行是指系统的硬限制，</span><br><span class="line">*soft nofile max-file-number	// 第二行是软限制。</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如果要修改<strong>系统级</strong>文件描述符数限制，则可以使用如下命令：在<code>/etc/sysctl.conf</code>文件中添加如下一项：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fs.file-max=max-file-number</span><br></pre></td></tr></table></figure>
+
+<p>然后通过执行 <code>sysctl -p</code>命令使更改生效。</p>
+<h4 id="16-2-调整内核参数"><a href="#16-2-调整内核参数" class="headerlink" title="16.2 调整内核参数"></a>16.2 调整内核参数</h4><p>几乎所有的内核模块，包括内核核心模块和驱动程序，都 在<code>/proc/sys</code>文件系统下提供了某些配置文件以供用户调整模块的属性 和行为。通常一个配置文件对应一个内核参数，文件名就是参数的名 字，文件的内容是参数的值。</p>
+<p>我们可以通过命令<code>sysctl -a</code>查看所有这些 内核参数。</p>
+<h5 id="16-2-1-proc-sys-fs目录下的部分文件"><a href="#16-2-1-proc-sys-fs目录下的部分文件" class="headerlink" title="16.2.1 /proc/sys/fs目录下的部分文件"></a>16.2.1 <code>/proc/sys/fs</code>目录下的部分文件</h5><p><code>/proc/sys/fs</code> 目录下的内核参数都与文件系统相关。</p>
+<ul>
+<li><p><code>/proc/sys/fs/file-max</code>，系统级文件描述符数限制。直接修改这个 参数和16.1节讨论的修改方法有相同的效果（不过这是临时修改）。</p>
+</li>
+<li><p><code>/proc/sys/fs/epoll/max_user_watches</code>，一个用户能够往epoll内核 事件表中注册的事件的总量。它是指该用户打开的所有epoll实例总共 能监听的事件数目，而不是单个epoll实例能监听的事件数目。</p>
+<blockquote>
+<p>往epoll 内核事件表中注册一个事件，在32位系统上大概消耗90字节的内核空 间，在64位系统上则消耗160字节的内核空间。所以，这个内核参数限 制了epoll使用的内核内存总量。</p>
+</blockquote>
+</li>
+</ul>
+<h5 id="16-2-2-proc-sys-net-目录下的部分文件"><a href="#16-2-2-proc-sys-net-目录下的部分文件" class="headerlink" title="16.2.2 /proc/sys/net 目录下的部分文件"></a>16.2.2 <code>/proc/sys/net</code> 目录下的部分文件</h5><p>内核中网络模块的相关参数都位于/proc/sys/net目录下，其中和 TCP/IP协议相关的参数主要位于如下三个子目录中：core、ipv4和 ipv6。</p>
+<ul>
+<li><code>/proc/sys/net/core/somaxconn</code>，指定listen监听队列里，能够建立完整连接从而进入ESTABLISHED状态的socket的最大数目。</li>
+<li><code>/proc/sys/net/ipv4/tcp_max_syn_backlog</code>，指定listen监听队列里， 能够转移至ESTABLISHED或者 SYN_RCVD 状态的socket的最大数目。</li>
+<li><code>/proc/sys/net/ipv4/tcp_wmem</code>，它包含3个值，分别指定一个 socket的TCP<strong>写缓冲区</strong>的最小值、默认值和最大值。</li>
+<li><code>/proc/sys/net/ipv4/tcp_rmem</code>，它包含3个值，分别指定一个socket 的TCP<strong>读缓冲区</strong>的最小值、默认值和最大值。</li>
+<li>/<code>proc/sys/net/ipv4/tcp_syncookies</code>，指定是否打开TCP同步标签 （syncookie）。同步标签通过启动cookie来防止一个监听socket因不停 地重复接收来自同一个地址的连接请求（同步报文段），而导致listen 监听队列溢出（所谓的SYN风暴）。</li>
+</ul>
+<p>除了通过<strong>直接修改文件的方式来修改这些系统参数</strong>外，我们也可以<strong>使用sysctl命令来修改</strong>它们。这两种修改方式都是<strong>临时</strong>的。</p>
+<p>永久的修改方法是在**/etc/sysctl.conf文件中加入相应网络参数及其数值**，并执行 sysctl-p使之生效，就像修改系统最大允许打开的文件描述符数那样。</p>
+<h4 id="16-3-gdb调试"><a href="#16-3-gdb调试" class="headerlink" title="16.3 gdb调试"></a>16.3 <code>gdb</code>调试</h4><h5 id="16-3-1-用gdb调试多进程程序"><a href="#16-3-1-用gdb调试多进程程序" class="headerlink" title="16.3.1 用gdb调试多进程程序"></a>16.3.1 用gdb调试多进程程序</h5><p>如果一个进程通过fork系统调用创建了子进程，gdb会继续调试原来的进程，子进程则正常运行。</p>
+<p>那么该如何调试子进程呢？常用的方法有如下两种。</p>
+<ol>
+<li><p>单独调试子进程</p>
+<p>子进程从本质上说也是一个进程，因此我们可以用通用的gdb调试 方法来调试它。举例来说，如果要调试代码清单15-2描述的 <code>CGI</code> 进程池服务器的某一个子进程，则我们可以先运行服务器，然后<strong>找到目标 子进程的PID，再将其附加（attach）到gdb调试器上</strong></p>
+</li>
+<li><p>使用调试器选项follow-fork-mode</p>
+<p>gdb调试器的选项follow-fork-mode允许我们选择程序在执行fork系 统调用后是继续调试父进程还是调试子进程。其用法如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb)set follow-fork-mode mode</span><br></pre></td></tr></table></figure>
+
+<p>其中，mode的可选值是parent和child，分别表示调试父进程和子进程。</p>
+</li>
+</ol>
+<h5 id="16-3-2-用gdb调试多线程程序"><a href="#16-3-2-用gdb调试多线程程序" class="headerlink" title="16.3.2 用gdb调试多线程程序"></a>16.3.2 用gdb调试多线程程序</h5><p>gdb有一组命令可辅助多线程程序的调试。下面我们仅列举其中常用的一些：</p>
+<ul>
+<li>info threads，显示当前可调试的所有线程。gdb会为每个线程分 配一个ID，我们可以使用这个ID来操作对应的线程。ID前面有“*”号 的线程是当前被调试的线程。</li>
+<li>thread ID，调试目标ID指定的线程。</li>
+<li>set scheduler-locking[off|on|step]。调试多线程程序时，默认除了 被调试的线程在执行外，其他线程也在继续执行，但有的时候我们希 望只让被调试的线程运行。这可以通过这个命令来实现。该命令设置 scheduler-locking的值：off表示不锁定任何线程，即所有线程都可以继 续执行，这是默认值；on表示只有当前被调试的线程会继续执行； step表示在单步执行的时候，只有当前线程会执行。</li>
+</ul>
+<p>最后，关于调试进程池和线程池程序的一个不错的方法，是<strong>先将池中的进程个数或线程个数减少至1，以观察程序的逻辑是否正确</strong>，比 如代码清单16-3就是这样做的；然后逐步增加进程或线程的数量，以 调试进程或线程的同步是否正确。</p>
+<h4 id="16-4-压力测试"><a href="#16-4-压力测试" class="headerlink" title="16.4 压力测试"></a>16.4 压力测试</h4><p>压力测试程序有很多种实现方式，比如I/O复用方式，多线程、多 进程并发编程方式，以及这些方式的结合使用。</p>
+<p>单纯的I/O复用 方式的施压程度是最高的，因为线程和进程的调度本身也是要占用一 定CPU时间的。</p>
+<p>使用epoll实现一个通用的服务器压力测试程序。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by sen on 2023/3/10.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/epoll.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="comment">/*每个客户连接不停地向服务器发送这个请求*/</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">char</span> *request = <span class="string">&quot;GET http://localhost/index.html &quot;</span></span><br><span class="line">                             <span class="string">&quot;HTTP/1.1\r\nConnection:keep-alive\r\n\r\nxxxxxxxxxxxx&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setnonblocking</span><span class="params">(<span class="keyword">int</span> fd)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> old_option = fcntl(fd, F_GETFL);</span><br><span class="line">	<span class="keyword">int</span> new_option = old_option | O_NONBLOCK;</span><br><span class="line">	fcntl(fd, F_SETFL, new_option);</span><br><span class="line">	<span class="keyword">return</span> old_option;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addfd</span><span class="params">(<span class="keyword">int</span> epoll_fd, <span class="keyword">int</span> fd)</span> </span>&#123;</span><br><span class="line">	epoll_event event&#123;&#125;;</span><br><span class="line">	event.data.fd = fd;</span><br><span class="line">	event.events = EPOLLOUT | EPOLLET | EPOLLERR;</span><br><span class="line">	epoll_ctl(epoll_fd, EPOLL_CTL_ADD, fd, &amp;event);</span><br><span class="line">	setnonblocking(fd);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*向服务器写入len字节的数据*/</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">write_nbytes</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> <span class="keyword">char</span> *buffer, <span class="keyword">int</span> len)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> bytes_write = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;write out%d bytes to socket%d\n&quot;</span>, len, sockfd);</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">		bytes_write = send(sockfd, buffer, len, <span class="number">0</span>);</span><br><span class="line">		<span class="keyword">if</span> (bytes_write == <span class="number">-1</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (bytes_write == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		len -= bytes_write;</span><br><span class="line">		buffer = buffer + bytes_write;</span><br><span class="line">		<span class="keyword">if</span> (len &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*从服务器读取数据*/</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">read_once</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">char</span> *buffer, <span class="keyword">int</span> len)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> bytes_read = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">memset</span>(buffer, <span class="string">&#x27;\0&#x27;</span>, len);</span><br><span class="line">	bytes_read = recv(sockfd, buffer, len, <span class="number">0</span>);</span><br><span class="line">	<span class="keyword">if</span> (bytes_read == <span class="number">-1</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> (bytes_read == <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;read in%d bytes from socket%d with content:%s\n&quot;</span>, bytes_read, sockfd, buffer);</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*向服务器发起num个TCP连接，我们可以通过改变num来调整测试压力*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">start_conn</span><span class="params">(<span class="keyword">int</span> epoll_fd, <span class="keyword">int</span> num, <span class="keyword">const</span> <span class="keyword">char</span> *ip, <span class="keyword">int</span> port)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">address</span>&#123;</span>&#125;;</span><br><span class="line">	bzero(&amp;address, <span class="keyword">sizeof</span>(address));</span><br><span class="line">	address.sin_family = AF_INET;</span><br><span class="line">	inet_pton(AF_INET, ip, &amp;address.sin_addr);</span><br><span class="line">	address.sin_port = htons(port);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num; ++i) &#123;</span><br><span class="line">		sleep(<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">int</span> sockfd = socket(PF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;create 1 sock\n&quot;</span>);</span><br><span class="line">		<span class="keyword">if</span> (sockfd &lt; <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (connect(sockfd, (struct sockaddr *) &amp;address, <span class="keyword">sizeof</span>(address)) == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;build connection%d\n&quot;</span>, i);</span><br><span class="line">			addfd(epoll_fd, sockfd);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">close_conn</span><span class="params">(<span class="keyword">int</span> epoll_fd, <span class="keyword">int</span> sockfd)</span> </span>&#123;</span><br><span class="line">	epoll_ctl(epoll_fd, EPOLL_CTL_DEL, sockfd, <span class="number">0</span>);</span><br><span class="line">	close(sockfd);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">	assert(argc == <span class="number">4</span>);</span><br><span class="line">	<span class="keyword">int</span> epoll_fd = epoll_create(<span class="number">100</span>);</span><br><span class="line">	start_conn(epoll_fd, atoi(argv[<span class="number">3</span>]), argv[<span class="number">1</span>], atoi(argv[<span class="number">2</span>]));</span><br><span class="line">	epoll_event events[<span class="number">10000</span>];</span><br><span class="line">	<span class="keyword">char</span> buffer[<span class="number">2048</span>];</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">		<span class="keyword">int</span> fds = epoll_wait(epoll_fd, events, <span class="number">10000</span>, <span class="number">2000</span>);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; fds; i++) &#123;</span><br><span class="line">			<span class="keyword">int</span> sockfd = events[i].data.fd;</span><br><span class="line">			<span class="keyword">if</span> (events[i].events &amp; EPOLLIN) &#123;</span><br><span class="line">				<span class="keyword">if</span> (!read_once(sockfd, buffer, <span class="number">2048</span>)) &#123;</span><br><span class="line">					close_conn(epoll_fd, sockfd);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> <span class="title">event</span>&#123;</span>&#125;;</span><br><span class="line">				event.events = EPOLLOUT | EPOLLET | EPOLLERR;</span><br><span class="line">				event.data.fd = sockfd;</span><br><span class="line">				epoll_ctl(epoll_fd, EPOLL_CTL_MOD, sockfd, &amp;event);</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span> (events[i].events &amp; EPOLLOUT) &#123;</span><br><span class="line">				<span class="keyword">if</span> (!write_nbytes(sockfd, request, <span class="built_in">strlen</span>(request))) &#123;</span><br><span class="line">					close_conn(epoll_fd, sockfd);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> <span class="title">event</span>&#123;</span>&#125;;</span><br><span class="line">				event.events = EPOLLIN | EPOLLET | EPOLLERR;</span><br><span class="line">				event.data.fd = sockfd;</span><br><span class="line">				epoll_ctl(epoll_fd, EPOLL_CTL_MOD, sockfd, &amp;event);</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span> (events[i].events &amp; EPOLLERR) &#123;</span><br><span class="line">				close_conn(epoll_fd, sockfd);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="第十七章-系统监测工具"><a href="#第十七章-系统监测工具" class="headerlink" title="第十七章 系统监测工具"></a>第十七章 系统监测工具</h3><p>Linux提供了很多有用的工具，以方便开发人员调试和测评服务器程序。</p>
+<h4 id="17-1-tcpdump"><a href="#17-1-tcpdump" class="headerlink" title="17.1 tcpdump"></a>17.1 tcpdump</h4><p>tcpdump是一款经典的网络抓包工具。tcpdump给使用者提供了大量的选项，用以过滤数据包或者定制输 出格式。</p>
+<p>现在我们把常见的选项 总结如下：</p>
+<ul>
+<li><p>-n，使用 IP 地址表示主机，而不是主机名；使用数字表示端口 号，而不是服务名称。</p>
+</li>
+<li><p>-i，指定要监听的网卡接口。“-i any”表示抓取所有网卡接口上 的数据包。</p>
+</li>
+<li><p>-v，输出一个稍微详细的信息，例如，显示IP数据包中的TTL和 TOS信息。</p>
+</li>
+<li><p>-t，不打印时间戳。 </p>
+</li>
+<li><p>-e，显示以太网帧头部信息。 </p>
+</li>
+<li><p>-c，仅抓取指定数量的数据包。 </p>
+</li>
+<li><p>-x，以十六进制数显示数据包的内容，但不显示包中以太网帧 的头部信息。 </p>
+</li>
+<li><p>-X，与-x选项类似，不过还打印每个十六进制字节对应的ASCII 字符。 </p>
+</li>
+<li><p>-XX，与-X相同，不过还打印以太网帧的头部信息。 </p>
+</li>
+<li><p>-s，设置抓包时的抓取长度。当数据包的长度超过抓取长度 时，tcpdump抓取到的将是被截断的数据包。</p>
+<blockquote>
+<p>在4.0以及之前的版本 中，默认的抓包长度是68字节。这对于IP、TCP和UDP等协议就已经 足够了，但对于像DNS、NFS这样的协议，68字节通常不能容纳一个 完整的数据包。比如我们在1.6.3小节抓取DNS数据包时，就使用了-s 选项（测试机器ernest-laptop上，tcpdump的版本是4.0.0）。不过4.0之 后的版本，默认的抓包长度被修改为65 535字节，因此我们不用再担 心抓包长度的问题了。 </p>
+</blockquote>
+</li>
+<li><p>-S，以绝对值来显示TCP报文段的序号，而不是相对值。 </p>
+</li>
+<li><p>-w，将tcpdump的输出以特殊的格式定向到某个文件。 </p>
+</li>
+<li><p>-r，从文件读取数据包信息并显示之。</p>
+</li>
+</ul>
+<h4 id="17-2-lsof"><a href="#17-2-lsof" class="headerlink" title="17.2 lsof"></a>17.2 lsof</h4><p>lsof（list open file）是一个列出当前系统打开的文件描述符的工 具。通过它我们可以了解感兴趣的进程打开了哪些文件描述符，或者 我们感兴趣的文件描述符被哪些进程打开了。</p>
+<ul>
+<li><p>-i，显示socket文件描述符。  如果-i选项后不指定任何参数，则lsof命令将显示所有socket文件 描述符。  该选项的使用方法是：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof-i[46][protocol][@hostname|ipaddr][:service|port]</span><br></pre></td></tr></table></figure>
+
+<p>其中，4表示IPv4协议，6表示IPv6协议；protocol指定传输层协 议，可以是TCP或者UDP；hostname指定主机名；ipaddr指定主机的IP 地址；service指定服务名；port指定端口号。</p>
+</li>
+<li><p>-u，显示指定用户启动的所有进程打开的所有文件描述符。</p>
+</li>
+<li><p>-c，显示指定的命令打开的所有文件描述符。</p>
+</li>
+<li><p>-p，显示指定进程打开的所有文件描述符。</p>
+</li>
+<li><p>-t，仅显示打开了目标文件描述符的进程的PID。</p>
+</li>
+</ul>
+<h4 id="17-3-nc"><a href="#17-3-nc" class="headerlink" title="17.3 nc"></a>17.3 nc</h4><p>它主要被用来快速构建网络连接。我们可以让它以服务器方式运行， 监听某个端口并接收客户连接，因此它可用来调试客户端程序。我们 也可以使之以客户端方式运行，向服务器发起连接并收发数据，因此 它可以用来调试服务器程序，此时它有点像telnet程序。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">- Listen on a specified port and <span class="built_in">print</span> any data received:</span><br><span class="line">   nc -l &#123;&#123;port&#125;&#125;</span><br><span class="line"></span><br><span class="line"> - Connect to a certain port:</span><br><span class="line">   nc &#123;&#123;ip_address&#125;&#125; &#123;&#123;port&#125;&#125;</span><br><span class="line"></span><br><span class="line"> - Set a timeout:</span><br><span class="line">   nc -w &#123;&#123;timeout_in_seconds&#125;&#125; &#123;&#123;ipaddress&#125;&#125; &#123;&#123;port&#125;&#125;</span><br><span class="line"></span><br><span class="line"> - Keep the server up after the client detaches:</span><br><span class="line">   nc -k -l &#123;&#123;port&#125;&#125;</span><br><span class="line"></span><br><span class="line"> - Keep the client up even after EOF:</span><br><span class="line">   nc -q &#123;&#123;timeout&#125;&#125; &#123;&#123;ip_address&#125;&#125;</span><br><span class="line"></span><br><span class="line"> - Scan the open ports of a specified host:</span><br><span class="line">   nc -v -z &#123;&#123;ip_address&#125;&#125; &#123;&#123;port&#125;&#125;</span><br><span class="line"></span><br><span class="line"> - Act as proxy and forward data from a <span class="built_in">local</span> TCP port to the given remote host:</span><br><span class="line">   nc -l &#123;&#123;local_port&#125;&#125; | nc &#123;&#123;hostname&#125;&#125; &#123;&#123;remote_port&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="17-4-strace"><a href="#17-4-strace" class="headerlink" title="17.4 strace"></a>17.4 strace</h4><p>strace是测试服务器性能的重要工具。它跟踪程序运行过程中执行 的系统调用和接收到的信号，并将系统调用名、参数、返回值及信号 名输出到标准输出或者指定的文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- Start tracing a specific process by its PID:</span><br><span class="line">   strace -p &#123;&#123;pid&#125;&#125;</span><br><span class="line"></span><br><span class="line"> - Trace a process and filter output by system call:</span><br><span class="line">   strace -p &#123;&#123;pid&#125;&#125; -e &#123;&#123;system_call_name&#125;&#125;</span><br><span class="line"></span><br><span class="line"> - Count time, calls, and errors for each system call and report a summary on program exit:</span><br><span class="line">   strace -p &#123;&#123;pid&#125;&#125; -c</span><br><span class="line"></span><br><span class="line"> - Show the time spent in every system call:</span><br><span class="line">   strace -p &#123;&#123;pid&#125;&#125; -T</span><br><span class="line"></span><br><span class="line"> - Start tracing a program by executing it:</span><br><span class="line">   strace &#123;&#123;program&#125;&#125;</span><br><span class="line"></span><br><span class="line"> - Start tracing file operations of a program:</span><br><span class="line">   strace -e trace=file &#123;&#123;program&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="17-5-netstat"><a href="#17-5-netstat" class="headerlink" title="17.5 netstat"></a>17.5 netstat</h4><p>netstat是一个功能很强大的网络信息统计工具。它可以打印本地 网卡接口上的全部连接、路由表信息、网卡接口信息等。</p>
+<p><strong>对本书而 言，我们主要利用的是上述功能中的第一个，即显示TCP连接及其状 态信息。</strong>毕竟，要获得路由表信息和网卡接口信息，我们可以使用输 出内容更丰富的route和ifconfig命令。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">- List all ports:</span><br><span class="line">  netstat --all</span><br><span class="line"></span><br><span class="line">- List all listening ports:</span><br><span class="line">  netstat --listening</span><br><span class="line"></span><br><span class="line">- List listening TCP ports:</span><br><span class="line">  netstat --tcp</span><br><span class="line"></span><br><span class="line">- Display PID and program names:</span><br><span class="line">  netstat --program</span><br><span class="line"></span><br><span class="line">- List information continuously:</span><br><span class="line">  netstat --continuous</span><br><span class="line"></span><br><span class="line">- List routes and do not resolve IP addresses to hostnames:</span><br><span class="line">  netstat --route --numeric</span><br><span class="line"></span><br><span class="line">- List listening TCP and UDP ports (+ user and process if you&#x27;re root):</span><br><span class="line">  netstat --listening --program --numeric --tcp --udp --extend</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="17-6-vmstat"><a href="#17-6-vmstat" class="headerlink" title="17.6 vmstat"></a>17.6 vmstat</h4><p>vmstat是virtual memory statistics的缩写，它能实时输出系统的各 种资源的使用情况，比如进程信息、内存使用、CPU使用率以及I/O使 用情况。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- Display virtual memory statistics:</span><br><span class="line">  vmstat</span><br><span class="line"></span><br><span class="line">- Display reports every 2 seconds for 5 times:</span><br><span class="line">  vmstat &#123;&#123;2&#125;&#125; &#123;&#123;5&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="17-7-ifstat"><a href="#17-7-ifstat" class="headerlink" title="17.7 ifstat"></a>17.7 ifstat</h4><p>ifstat是interface statistics的缩写，它是一个简单的网络流量监测工 具。</p>
+<ul>
+<li>-a，监测系统上的所有网卡接口。 </li>
+<li>-i，指定要监测的网卡接口。 </li>
+<li>-t，在每行输出信息前加上时间戳。 </li>
+<li>-b，以Kbit/s为单位显示数据，而不是默认的KB/s。 </li>
+<li>delay，采样间隔（单位是s），即每隔delay的时间输出一次统 计信息。 </li>
+<li>count，采样次数，即共输出count次统计信息。</li>
+</ul>
+<h4 id="17-8-mpstat"><a href="#17-8-mpstat" class="headerlink" title="17.8 mpstat"></a>17.8 mpstat</h4><p>mpstat是multi-processor statistics的缩写，它能实时监测多处理器 系统上每个CPU的使用情况。mpstat命令和iostat命令通常都集成在包 sysstat中，安装sysstat即可获得这两个命令。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- Display CPU statistics every 2 seconds:</span><br><span class="line">   mpstat &#123;&#123;2&#125;&#125;</span><br><span class="line"></span><br><span class="line"> - Display 5 reports, one by one, at 2 second intervals:</span><br><span class="line">   mpstat &#123;&#123;2&#125;&#125; &#123;&#123;5&#125;&#125;</span><br><span class="line"></span><br><span class="line"> - Display 5 reports, one by one, from a given processor, at 2 second intervals:</span><br><span class="line">   mpstat -P &#123;&#123;0&#125;&#125; &#123;&#123;2&#125;&#125; &#123;&#123;5&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">okeyia</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://okeyia.github.io/2023/03/10/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BC%98%E5%8C%96%E4%B8%8E%E6%A3%80%E6%B5%8B/">http://okeyia.github.io/2023/03/10/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BC%98%E5%8C%96%E4%B8%8E%E6%A3%80%E6%B5%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://okeyia.github.io" target="_blank">okeyia</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BC%96%E7%A8%8B/">服务器编程</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/03/10/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BC%96%E7%A8%8B/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202303091408284.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">三 高性能服务器编程</div></div></a></div><div class="next-post pull-right"><a href="/2023/01/29/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%A1%86%E6%9E%B6/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202303091404676.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">二 高性能服务器框架</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/12/09/TCPIP%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/" title="一 TCP/IP协议详解"><img class="cover" src="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202303091414085.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-09</div><div class="title">一 TCP/IP协议详解</div></div></a></div><div><a href="/2023/01/29/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%A1%86%E6%9E%B6/" title="二 高性能服务器框架"><img class="cover" src="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202303091404676.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-29</div><div class="title">二 高性能服务器框架</div></div></a></div><div><a href="/2023/03/10/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BC%96%E7%A8%8B/" title="三 高性能服务器编程"><img class="cover" src="https://cdn.jsdelivr.net/gh/okeyia/PictBed/Blogimg/202303091408284.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-10</div><div class="title">三 高性能服务器编程</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AF%87-%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BC%98%E5%8C%96%E4%B8%8E%E7%9B%91%E6%B5%8B"><span class="toc-text">第四篇 高性能服务器优化与监测</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0-%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B0%83%E5%88%B6%E3%80%81%E8%B0%83%E8%AF%95%E5%92%8C%E6%B5%8B%E8%AF%95"><span class="toc-text">第十六章 服务器调制、调试和测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#16-1-%E6%9C%80%E5%A4%A7%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6%E6%95%B0"><span class="toc-text">16.1 最大文件描述符数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#16-2-%E8%B0%83%E6%95%B4%E5%86%85%E6%A0%B8%E5%8F%82%E6%95%B0"><span class="toc-text">16.2 调整内核参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#16-2-1-proc-sys-fs%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E9%83%A8%E5%88%86%E6%96%87%E4%BB%B6"><span class="toc-text">16.2.1 &#x2F;proc&#x2F;sys&#x2F;fs目录下的部分文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#16-2-2-proc-sys-net-%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E9%83%A8%E5%88%86%E6%96%87%E4%BB%B6"><span class="toc-text">16.2.2 &#x2F;proc&#x2F;sys&#x2F;net 目录下的部分文件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#16-3-gdb%E8%B0%83%E8%AF%95"><span class="toc-text">16.3 gdb调试</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#16-3-1-%E7%94%A8gdb%E8%B0%83%E8%AF%95%E5%A4%9A%E8%BF%9B%E7%A8%8B%E7%A8%8B%E5%BA%8F"><span class="toc-text">16.3.1 用gdb调试多进程程序</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#16-3-2-%E7%94%A8gdb%E8%B0%83%E8%AF%95%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%A8%8B%E5%BA%8F"><span class="toc-text">16.3.2 用gdb调试多线程程序</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#16-4-%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95"><span class="toc-text">16.4 压力测试</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E4%B8%83%E7%AB%A0-%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%B5%8B%E5%B7%A5%E5%85%B7"><span class="toc-text">第十七章 系统监测工具</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#17-1-tcpdump"><span class="toc-text">17.1 tcpdump</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#17-2-lsof"><span class="toc-text">17.2 lsof</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#17-3-nc"><span class="toc-text">17.3 nc</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#17-4-strace"><span class="toc-text">17.4 strace</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#17-5-netstat"><span class="toc-text">17.5 netstat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#17-6-vmstat"><span class="toc-text">17.6 vmstat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#17-7-ifstat"><span class="toc-text">17.7 ifstat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#17-8-mpstat"><span class="toc-text">17.8 mpstat</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2023 By okeyia</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
